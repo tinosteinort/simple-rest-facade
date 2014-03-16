@@ -1,6 +1,6 @@
 .metadata/
 RemoteSystemsTempFiles/
-simple-rest-facade/target/
-simple-rest-facade/.settings
-simple-rest-facade/.classpath
-simple-rest-facade/.project
+*/target/
+*/.settings
+*/.classpath
+*/.project
