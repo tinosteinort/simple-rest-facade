@@ -8,6 +8,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
 public class CachedPayloadDetector implements PayloadDetector {
 
@@ -51,7 +52,8 @@ public class CachedPayloadDetector implements PayloadDetector {
 	private boolean isPayloadParameter(final Annotation[] annotationsOfParameter) {
 		for (Annotation parameterAnnotation : annotationsOfParameter) {
 			
-			if (parameterAnnotation instanceof PathParam) {
+			if (parameterAnnotation instanceof PathParam
+					|| parameterAnnotation instanceof QueryParam) {
 				return false;
 			}
 		}
