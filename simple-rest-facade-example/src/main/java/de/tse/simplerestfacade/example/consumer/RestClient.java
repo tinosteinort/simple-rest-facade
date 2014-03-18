@@ -28,18 +28,21 @@ public class RestClient {
 											   new User("John", "D."),
 											   new User("Emma", "W."));
 		
+		System.out.println("Create users...");
 		for (User user : users) {
 			
 			final User createdUser = userService.createUser(user);
-			System.out.println("created: " + createdUser);
+			System.out.println("  " + createdUser);
 		}
 	}
 	
-	public void loadAllUsers() {
+	public void findUsers(final String firstname, final String lastname) {
 		
-		final User[] foundUsers = userService.findUser("Max", "M");
+		System.out.println("Searching for '" + firstname + " " + lastname + "' ... ");
+		
+		final User[] foundUsers = userService.findUser(firstname, lastname);
 		for (User user : foundUsers) {
-			System.out.println("found: " + user);
+			System.out.println("  " + user);
 		}
 	}
 	
@@ -50,7 +53,7 @@ public class RestClient {
 		
 		final RestClient client = new RestClient("http://localhost:8080/restexample");
 		client.createUsers();
-		client.loadAllUsers();
+		client.findUsers("Max", "M");
 		
 		server.stop();
 	}
