@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 
 import de.tse.simplerestfacade.JerseyRestFacadeFactory;
 import de.tse.simplerestfacade.RestFacadeFactory;
-import de.tse.simplerestfacade.example.consumer.api.Person;
+import de.tse.simplerestfacade.example.consumer.api.User;
 import de.tse.simplerestfacade.example.consumer.api.UserService;
 import de.tse.simplerestfacade.example.provider.RestServer;
 
@@ -22,24 +22,24 @@ public class RestClient {
 		this.userService = factory.createFacade(UserService.class, MediaType.APPLICATION_XML);
 	}
 	
-	public void createPersons() {
+	public void createUsers() {
 		
-		final List<Person> persons = Arrays.asList(new Person("Max", "M."), 
-											 	   new Person("John", "D."),
-												   new Person("Emma", "W."));
+		final List<User> users = Arrays.asList(new User("Max", "M."), 
+											   new User("John", "D."),
+											   new User("Emma", "W."));
 		
-		for (Person person : persons) {
+		for (User user : users) {
 			
-			final Person createdPerson = userService.createUser(person);
-			System.out.println("created: " + createdPerson);
+			final User createdUser = userService.createUser(user);
+			System.out.println("created: " + createdUser);
 		}
 	}
 	
-	public void loadAllPersons() {
+	public void loadAllUsers() {
 		
-		Person[] foundPersons = userService.findUser("Max", "M");
-		for (Person person : foundPersons) {
-			System.out.println("found: " + person);
+		final User[] foundUsers = userService.findUser("Max", "M");
+		for (User user : foundUsers) {
+			System.out.println("found: " + user);
 		}
 	}
 	
@@ -49,8 +49,8 @@ public class RestClient {
 		server.start();
 		
 		final RestClient client = new RestClient("http://localhost:8080/restexample");
-		client.createPersons();
-		client.loadAllPersons();
+		client.createUsers();
+		client.loadAllUsers();
 		
 		server.stop();
 	}

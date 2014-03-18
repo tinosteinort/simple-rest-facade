@@ -13,7 +13,7 @@ public class JerseyRestFacadeFactory extends RestFacadeFactory {
 		super(endpoint);
 	}
 	
-	public JerseyRestFacadeFactory(String endpoint) {
+	public JerseyRestFacadeFactory(final String endpoint) {
 		super(endpoint);
 	}
 

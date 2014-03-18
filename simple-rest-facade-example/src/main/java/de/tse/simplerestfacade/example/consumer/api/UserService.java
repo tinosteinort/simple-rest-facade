@@ -15,12 +15,12 @@ public interface UserService {
 	@POST
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_XML)
-	Person createUser(Person person);
+	User createUser(User user);
 	
 	@GET
 	@Path("/get/{id}")
 	@Produces(MediaType.APPLICATION_XML)
-	Person getUser(@PathParam("id") Integer id);
+	User getUser(@PathParam("id") Integer id);
 	
 	@DELETE
 	@Path("/delete/{id}")
@@ -30,5 +30,5 @@ public interface UserService {
 	@GET
 	@Path("/find")
 	@Produces(MediaType.APPLICATION_XML)
-	Person[] findUser(@QueryParam("firstname") String firstname, @QueryParam("lastname") String lastname);
+	User[] findUser(@QueryParam("firstname") String firstname, @QueryParam("lastname") String lastname);
 }

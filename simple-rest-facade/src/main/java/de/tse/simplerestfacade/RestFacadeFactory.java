@@ -3,7 +3,6 @@ package de.tse.simplerestfacade;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 public abstract class RestFacadeFactory {
 
@@ -14,12 +13,7 @@ public abstract class RestFacadeFactory {
 	}
 	
 	public RestFacadeFactory(final String endpoint) {
-		try {
-			this.endpoint = new URI(endpoint);
-		}
-		catch (URISyntaxException ex) {
-			throw new IllegalArgumentException(String.format("Illegal URI: %s", endpoint), ex);
-		}
+		this.endpoint = URI.create(endpoint);
 	}
 	
 	@SuppressWarnings("unchecked")

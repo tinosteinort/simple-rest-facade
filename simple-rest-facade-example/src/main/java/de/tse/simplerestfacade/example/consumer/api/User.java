@@ -52,6 +52,6 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return "[Person: id=" + id + ", name="+ firstname + " " + lastname + "]";
+		return "[" + getClass().getSimpleName() + ": id=" + id + ", name="+ firstname + " " + lastname + "]";
 	}
 }
