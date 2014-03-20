@@ -6,11 +6,11 @@ import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 
-import de.tse.simplerestfacade.JerseyRestFacadeFactory;
 import de.tse.simplerestfacade.RestFacadeFactory;
 import de.tse.simplerestfacade.example.consumer.api.User;
 import de.tse.simplerestfacade.example.consumer.api.UserService;
 import de.tse.simplerestfacade.example.provider.RestServer;
+import de.tse.simplerestfacade.jersey.JerseyRestFacadeFactory;
 
 public class RestClient {
 

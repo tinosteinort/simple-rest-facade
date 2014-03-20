@@ -1,15 +1,15 @@
 package de.tse.simplerestfacade.invocation;
 
-public class QueryParameter {
+public class KeyValue {
 
 	private String key;
 	private Object value;
 	
-	public QueryParameter() {
+	public KeyValue() {
 		
 	}
 	
-	public QueryParameter(final String key, final Object value) {
+	public KeyValue(final String key, final Object value) {
 		this.key = key;
 		this.value = value;
 	}
@@ -45,7 +45,7 @@ public class QueryParameter {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		QueryParameter other = (QueryParameter) obj;
+		KeyValue other = (KeyValue) obj;
 		if (key == null) {
 			if (other.key != null)
 				return false;

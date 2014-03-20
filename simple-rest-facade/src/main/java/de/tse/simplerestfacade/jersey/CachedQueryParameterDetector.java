@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.invocation;
+package de.tse.simplerestfacade.jersey;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -12,38 +12,40 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.ws.rs.QueryParam;
 
-public class CachedQueryParameterDetector implements QueryParameterDetector {
+import de.tse.simplerestfacade.invocation.KeyValue;
 
-	private final Map<Method, List<QueryParameterCacheInfo>> queryParameterCache = new HashMap<>();
+class CachedQueryParameterDetector implements QueryParameterDetector {
+
+	private final Map<Method, List<KeyValueCacheInfo>> queryParameterCache = new HashMap<>();
 	private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 	
 	@Override
-	public List<QueryParameter> detectQueryParameter(final Method method, final Object[] args) {
+	public List<KeyValue> detectQueryParameter(final Method method, final Object[] args) {
 		if (args == null) {
 			return Collections.emptyList();
 		}
 		
-		List<QueryParameterCacheInfo> cacheInfo = getCachedParameterInfos(method);
+		List<KeyValueCacheInfo> cacheInfo = getCachedParameterInfos(method);
 		if (cacheInfo == null) {
 			cacheInfo = doCacheParameter(method, args);
 		}
 		return getQueryParameterFromCache(cacheInfo, args);
 	}
 	
-	private List<QueryParameter> getQueryParameterFromCache(final List<QueryParameterCacheInfo> methodCacheInfo, final Object[] args) {
-		final List<QueryParameter> queryParams = new ArrayList<>();
-		for (QueryParameterCacheInfo parameterInfo : methodCacheInfo) {
+	private List<KeyValue> getQueryParameterFromCache(final List<KeyValueCacheInfo> methodCacheInfo, final Object[] args) {
+		final List<KeyValue> queryParams = new ArrayList<>();
+		for (KeyValueCacheInfo parameterInfo : methodCacheInfo) {
 			
-			final String paramKey = parameterInfo.getQueryParameterKey();
-			final Object paramValue = args[parameterInfo.getQueryParameterIndex()];
+			final String paramKey = parameterInfo.getKey();
+			final Object paramValue = args[parameterInfo.getIndex()];
 
-			queryParams.add(new QueryParameter(paramKey, paramValue));
+			queryParams.add(new KeyValue(paramKey, paramValue));
 		}
 		return queryParams;
 	}
 	
-	private List<QueryParameterCacheInfo> doCacheParameter(final Method method, final Object[] args) {
-		final List<QueryParameterCacheInfo> cacheInfos = new ArrayList<>();
+	private List<KeyValueCacheInfo> doCacheParameter(final Method method, final Object[] args) {
+		final List<KeyValueCacheInfo> cacheInfos = new ArrayList<>();
 		
 		final Annotation[][] allParameterAnnotations = method.getParameterAnnotations();
 		for (int i = 0; i < allParameterAnnotations.length; i++) {
@@ -54,7 +56,7 @@ public class CachedQueryParameterDetector implements QueryParameterDetector {
 				if (parameterAnnotation instanceof QueryParam) {
 					final String paramKey = ((QueryParam) parameterAnnotation).value();
 
-					cacheInfos.add(new QueryParameterCacheInfo(i, paramKey));
+					cacheInfos.add(new KeyValueCacheInfo(i, paramKey));
 				}
 			}
 		}
@@ -63,10 +65,10 @@ public class CachedQueryParameterDetector implements QueryParameterDetector {
 		return cacheInfos;
 	}
 	
-	private List<QueryParameterCacheInfo> getCachedParameterInfos(final Method method) {
+	private List<KeyValueCacheInfo> getCachedParameterInfos(final Method method) {
 		readWriteLock.readLock().lock();
 		try {
-			final List<QueryParameterCacheInfo> cacheInfos = queryParameterCache.get(method);
+			final List<KeyValueCacheInfo> cacheInfos = queryParameterCache.get(method);
 			return cacheInfos == null ? null : Collections.unmodifiableList(cacheInfos);
 		}
 		finally {
@@ -74,10 +76,10 @@ public class CachedQueryParameterDetector implements QueryParameterDetector {
 		}
 	}
 	
-	private void putParameterInfosIntoCache(final Method method, final List<QueryParameterCacheInfo> parameterInfos) {
+	private void putParameterInfosIntoCache(final Method method, final List<KeyValueCacheInfo> parameterInfos) {
 		readWriteLock.writeLock().lock();
 		try {
-			List<QueryParameterCacheInfo> cacheInfos = queryParameterCache.get(method);
+			List<KeyValueCacheInfo> cacheInfos = queryParameterCache.get(method);
 			if (cacheInfos == null) {
 				cacheInfos = new ArrayList<>();
 			}

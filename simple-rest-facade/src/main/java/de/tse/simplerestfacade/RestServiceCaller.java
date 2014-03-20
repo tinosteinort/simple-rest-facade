@@ -1,11 +1,9 @@
 package de.tse.simplerestfacade;
 
-import java.util.List;
-
-import de.tse.simplerestfacade.invocation.QueryParameter;
+import de.tse.simplerestfacade.invocation.MethodInformation;
 
 
 public interface RestServiceCaller {
 
-	<T> T callRestService(String methodUrl, List<QueryParameter> queryParams, List<QueryParameter> headerParams, String mediaType, Object payload, Class<T> returnType);
+	Object callRestService(MethodInformation methodInformation);
 }

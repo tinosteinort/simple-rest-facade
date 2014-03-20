@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.invocation;
+package de.tse.simplerestfacade.jersey;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -10,7 +10,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
-public class CachedPayloadDetector implements PayloadDetector {
+class CachedPayloadDetector implements PayloadDetector {
 
 	private final static int NO_PAYLOAD_INDEX = -1;
 	
