@@ -19,7 +19,7 @@ public class JerseyServiceCaller implements RestServiceCaller {
 	}
 	
 	@Override
-	public Object callRestService(final String methodUrl, final List<QueryParameter> queryParams, final List<QueryParameter> headerParams, final String mediaType, final Object payload, final Class<?> returnType) {
+	public <T> T callRestService(final String methodUrl, final List<QueryParameter> queryParams, final List<QueryParameter> headerParams, final String mediaType, final Object payload, final Class<T> returnType) {
 		
 		WebResource webResource = client.resource(endpoint).path(methodUrl);
 		webResource = applyQueryParams(webResource, queryParams);

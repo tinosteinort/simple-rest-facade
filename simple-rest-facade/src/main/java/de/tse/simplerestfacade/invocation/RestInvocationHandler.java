@@ -26,6 +26,7 @@ public class RestInvocationHandler implements InvocationHandler {
 		
 		// TODO 'MethodCacheInfo cacheInfo = methodCache.getCacheInfos(method);' instead of *Generator and *Detector
 		// TODO @FromParam, @MatrixParam, @CookieParam
+		// TODO QueryParameter in KeyValue umbenennen
 		final String methodUrl = urlGenerator.generate(method, args);
 		final Object payload = payloadDetector.detectPayload(method, args);
 		final List<QueryParameter> queryParams = queryParamDetector.detectQueryParameter(method, args);
