@@ -18,7 +18,7 @@ public abstract class RestFacadeFactory {
 	
 	@SuppressWarnings("unchecked")
 	protected <T> T createProxy(final Class<T> facadeClass, final InvocationHandler invocationHandler) {
-		return (T) Proxy.newProxyInstance(facadeClass.getClassLoader(), new Class[] { facadeClass }, invocationHandler);
+		return (T) Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[] { facadeClass }, invocationHandler);
 	}
 	
 	public abstract <T> T createFacade(final Class<T> clazz, final String mediaType);
