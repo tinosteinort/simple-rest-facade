@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey;
+package de.tse.simplerestfacade.jersey.old;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -10,33 +10,34 @@ import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import javax.ws.rs.HeaderParam;
+import javax.ws.rs.QueryParam;
 
 import de.tse.simplerestfacade.invocation.KeyValue;
+import de.tse.simplerestfacade.jersey.cache.ParameterCacheInfo;
 
-class CachedHeaderParameterDetector implements HeaderParameterDetector {
+class CachedQueryParameterDetector implements QueryParameterDetector {
 
-	private final Map<Method, List<KeyValueCacheInfo>> headerParameterCache = new HashMap<>();
+	private final Map<Method, List<ParameterCacheInfo>> queryParameterCache = new HashMap<>();
 	private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 	
 	@Override
-	public List<KeyValue> detectHeaderParameter(final Method method, final Object[] args) {
+	public List<KeyValue> detectQueryParameter(final Method method, final Object[] args) {
 		if (args == null) {
 			return Collections.emptyList();
 		}
 		
-		List<KeyValueCacheInfo> cacheInfo = getCachedParameterInfos(method);
+		List<ParameterCacheInfo> cacheInfo = getCachedParameterInfos(method);
 		if (cacheInfo == null) {
 			cacheInfo = doCacheParameter(method, args);
 		}
-		return getHeaderParameterFromCache(cacheInfo, args);
+		return getQueryParameterFromCache(cacheInfo, args);
 	}
 	
-	private List<KeyValue> getHeaderParameterFromCache(final List<KeyValueCacheInfo> methodCacheInfo, final Object[] args) {
+	private List<KeyValue> getQueryParameterFromCache(final List<ParameterCacheInfo> methodCacheInfo, final Object[] args) {
 		final List<KeyValue> queryParams = new ArrayList<>();
-		for (KeyValueCacheInfo parameterInfo : methodCacheInfo) {
+		for (ParameterCacheInfo parameterInfo : methodCacheInfo) {
 			
-			final String paramKey = parameterInfo.getKey();
+			final String paramKey = parameterInfo.getParameterKey();
 			final Object paramValue = args[parameterInfo.getIndex()];
 
 			queryParams.add(new KeyValue(paramKey, paramValue));
@@ -44,8 +45,8 @@ class CachedHeaderParameterDetector implements HeaderParameterDetector {
 		return queryParams;
 	}
 	
-	private List<KeyValueCacheInfo> doCacheParameter(final Method method, final Object[] args) {
-		final List<KeyValueCacheInfo> cacheInfos = new ArrayList<>();
+	private List<ParameterCacheInfo> doCacheParameter(final Method method, final Object[] args) {
+		final List<ParameterCacheInfo> cacheInfos = new ArrayList<>();
 		
 		final Annotation[][] allParameterAnnotations = method.getParameterAnnotations();
 		for (int i = 0; i < allParameterAnnotations.length; i++) {
@@ -53,10 +54,10 @@ class CachedHeaderParameterDetector implements HeaderParameterDetector {
 			final Annotation[] parameterAnnotations = allParameterAnnotations[i];
 			for (Annotation parameterAnnotation : parameterAnnotations) {
 
-				if (parameterAnnotation instanceof HeaderParam) {
-					final String paramKey = ((HeaderParam) parameterAnnotation).value();
+				if (parameterAnnotation instanceof QueryParam) {
+					final String paramKey = ((QueryParam) parameterAnnotation).value();
 
-					cacheInfos.add(new KeyValueCacheInfo(i, paramKey));
+					cacheInfos.add(new ParameterCacheInfo(i, paramKey));
 				}
 			}
 		}
@@ -65,10 +66,10 @@ class CachedHeaderParameterDetector implements HeaderParameterDetector {
 		return cacheInfos;
 	}
 	
-	private List<KeyValueCacheInfo> getCachedParameterInfos(final Method method) {
+	private List<ParameterCacheInfo> getCachedParameterInfos(final Method method) {
 		readWriteLock.readLock().lock();
 		try {
-			final List<KeyValueCacheInfo> cacheInfos = headerParameterCache.get(method);
+			final List<ParameterCacheInfo> cacheInfos = queryParameterCache.get(method);
 			return cacheInfos == null ? null : Collections.unmodifiableList(cacheInfos);
 		}
 		finally {
@@ -76,15 +77,15 @@ class CachedHeaderParameterDetector implements HeaderParameterDetector {
 		}
 	}
 	
-	private void putParameterInfosIntoCache(final Method method, final List<KeyValueCacheInfo> parameterInfos) {
+	private void putParameterInfosIntoCache(final Method method, final List<ParameterCacheInfo> parameterInfos) {
 		readWriteLock.writeLock().lock();
 		try {
-			List<KeyValueCacheInfo> cacheInfos = headerParameterCache.get(method);
+			List<ParameterCacheInfo> cacheInfos = queryParameterCache.get(method);
 			if (cacheInfos == null) {
 				cacheInfos = new ArrayList<>();
 			}
 			cacheInfos.addAll(parameterInfos);
-			headerParameterCache.put(method, cacheInfos);
+			queryParameterCache.put(method, cacheInfos);
 		}
 		finally {
 			readWriteLock.writeLock().unlock();

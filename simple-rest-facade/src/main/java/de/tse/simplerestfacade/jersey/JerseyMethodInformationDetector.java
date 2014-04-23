@@ -1,18 +1,22 @@
 package de.tse.simplerestfacade.jersey;
 
 import java.lang.reflect.Method;
-import java.util.List;
 
 import de.tse.simplerestfacade.RestInformationDetector;
 import de.tse.simplerestfacade.invocation.MethodInformation;
-import de.tse.simplerestfacade.invocation.KeyValue;
+import de.tse.simplerestfacade.jersey.cache.CachableMethodData;
+import de.tse.simplerestfacade.jersey.cache.DefaultMethodCache;
+import de.tse.simplerestfacade.jersey.methodinformation.MethodInformationBuilder;
 
 public class JerseyMethodInformationDetector implements RestInformationDetector {
 
-	private final UrlGenerator urlGenerator = new CachedUrlGenerator();
-	private final PayloadDetector payloadDetector = new CachedPayloadDetector();
-	private final QueryParameterDetector queryParamDetector = new CachedQueryParameterDetector();
-	private final HeaderParameterDetector headerParameterDetector = new CachedHeaderParameterDetector();
+//	private final UrlGenerator urlGenerator = new CachedUrlGenerator();
+//	private final PayloadDetector payloadDetector = new CachedPayloadDetector();
+//	private final QueryParameterDetector queryParamDetector = new CachedQueryParameterDetector();
+//	private final HeaderParameterDetector headerParameterDetector = new CachedHeaderParameterDetector();
+	
+	private final MethodCache methodCache = new DefaultMethodCache();
+	private final MethodInformationBuilder methodInformationBuilder = new MethodInformationBuilder();
 	
 	@Override
 	public MethodInformation detectRestInformations(final Method method, final Object[] args, final String mediaType) {
@@ -20,21 +24,32 @@ public class JerseyMethodInformationDetector implements RestInformationDetector 
 		// TODO 'MethodCacheInfo cacheInfo = methodCache.getCacheInfos(method);' instead of *Generator and *Detector
 		// TODO @FromParam, @MatrixParam, @CookieParam
 		
-		final String methodUrl = urlGenerator.generate(method, args);
-		final Object payload = payloadDetector.detectPayload(method, args);
-		final List<KeyValue> queryParams = queryParamDetector.detectQueryParameter(method, args);
-		final List<KeyValue> headerParams = headerParameterDetector.detectHeaderParameter(method, args);
+		methodCache.buildCache(method, args);
+		final CachableMethodData cachedMethodData = methodCache.getCachedData(method);
 		
-		final MethodInformation information = new MethodInformation.Builder()
-													.mediaType(mediaType)
-													.methodUrl(methodUrl)
-													.payload(payload)
-													.queryParameter(queryParams)
-													.headerParameter(headerParams)
-													.returnType(method.getReturnType())
-													.build();
+		// TODO Klassen aufteilen: Packages
+		//							- methodinformation
+		//							- cache
+		final MethodInformation information = methodInformationBuilder.build(cachedMethodData, method, args, mediaType);
+		
+		
+		// In 'MethodCall' Objekt verpacken: Method method, Object[] args
+		
+		
+//		final String methodUrl = urlGenerator.generate(method, args);
+//		final Object payload = payloadDetector.detectPayload(method, args);
+//		final List<KeyValue> queryParams = queryParamDetector.detectQueryParameter(method, args);
+//		final List<KeyValue> headerParams = headerParameterDetector.detectHeaderParameter(method, args);
+//		
+//		final MethodInformation information = new MethodInformation.Builder()
+//													.mediaType(mediaType)
+//													.methodUrl(methodUrl)
+//													.payload(payload)
+//													.queryParameters(queryParams)
+//													.headerParameters(headerParams)
+//													.returnType(method.getReturnType())
+//													.build();
 		
 		return information;
 	}
-
 }

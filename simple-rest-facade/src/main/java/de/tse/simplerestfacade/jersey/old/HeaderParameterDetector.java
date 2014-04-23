@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey;
+package de.tse.simplerestfacade.jersey.old;
 
 import java.lang.reflect.Method;
 import java.util.List;
