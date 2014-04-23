@@ -1,8 +1,7 @@
 package de.tse.simplerestfacade.jersey;
 
-import java.lang.reflect.Method;
-
 import de.tse.simplerestfacade.RestInformationDetector;
+import de.tse.simplerestfacade.invocation.MethodCall;
 import de.tse.simplerestfacade.invocation.MethodInformation;
 import de.tse.simplerestfacade.jersey.cache.CachableMethodData;
 import de.tse.simplerestfacade.jersey.cache.DefaultMethodCache;
@@ -19,18 +18,18 @@ public class JerseyMethodInformationDetector implements RestInformationDetector 
 	private final MethodInformationBuilder methodInformationBuilder = new MethodInformationBuilder();
 	
 	@Override
-	public MethodInformation detectRestInformations(final Method method, final Object[] args, final String mediaType) {
+	public MethodInformation detectRestInformations(final MethodCall methodCall, final String mediaType) {
 		
 		// TODO 'MethodCacheInfo cacheInfo = methodCache.getCacheInfos(method);' instead of *Generator and *Detector
 		// TODO @FromParam, @MatrixParam, @CookieParam
 		
-		methodCache.buildCache(method, args);
-		final CachableMethodData cachedMethodData = methodCache.getCachedData(method);
+		methodCache.buildCache(methodCall);
+		final CachableMethodData cachedMethodData = methodCache.getCachedData(methodCall);
 		
 		// TODO Klassen aufteilen: Packages
 		//							- methodinformation
 		//							- cache
-		final MethodInformation information = methodInformationBuilder.build(cachedMethodData, method, args, mediaType);
+		final MethodInformation information = methodInformationBuilder.build(cachedMethodData, methodCall, mediaType);
 		
 		
 		// In 'MethodCall' Objekt verpacken: Method method, Object[] args

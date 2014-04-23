@@ -1,9 +1,10 @@
 package de.tse.simplerestfacade.jersey.cache;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.tse.simplerestfacade.invocation.MethodCall;
 
 class CachableDataCollector {
 
@@ -17,15 +18,15 @@ class CachableDataCollector {
 		methodDataCollectors.add(new UrlTemplateDetector());
 	}
 	
-	public CachableMethodData collectCachableData(final Method method, final Object[] args) {
+	public CachableMethodData collectCachableData(final MethodCall methodCall) {
 		
 		final CachableMethodData cachableMethodData = new CachableMethodData();
 		
 		for (MethodDataCollector collector : methodDataCollectors) {
-			collector.collectAndApply(method, cachableMethodData);
+			collector.collectAndApply(methodCall.getMethod(), cachableMethodData);
 		}
 		
-		final Annotation[][] allParameterAnnotations = method.getParameterAnnotations();
+		final Annotation[][] allParameterAnnotations = methodCall.getMethod().getParameterAnnotations();
 		for (int i = 0; i < allParameterAnnotations.length; i++) {
 			
 			for (ParameterAnnotationDataCollector collector : annotationDataCollectors) {
