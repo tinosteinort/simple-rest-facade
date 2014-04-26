@@ -9,7 +9,6 @@ import javax.ws.rs.HeaderParam;
 import de.tse.simplerestfacade.invocation.KeyValue;
 import de.tse.simplerestfacade.invocation.MethodCall;
 import de.tse.simplerestfacade.jersey.DefaultMethodInformation;
-import de.tse.simplerestfacade.jersey.cache.ParameterCacheInfo;
 
 class HeaderParamCollector extends AbstractCollector<List<ParameterCacheInfo>> {
 
