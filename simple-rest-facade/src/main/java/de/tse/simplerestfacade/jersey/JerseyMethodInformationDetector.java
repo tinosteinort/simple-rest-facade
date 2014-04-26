@@ -3,9 +3,7 @@ package de.tse.simplerestfacade.jersey;
 import de.tse.simplerestfacade.RestInformationDetector;
 import de.tse.simplerestfacade.invocation.MethodCall;
 import de.tse.simplerestfacade.invocation.MethodInformation;
-import de.tse.simplerestfacade.jersey.cache.CachableMethodData;
-import de.tse.simplerestfacade.jersey.cache.DefaultMethodCache;
-import de.tse.simplerestfacade.jersey.methodinformation.MethodInformationBuilder;
+import de.tse.simplerestfacade.jersey.collector.MethodInformationCollector;
 
 public class JerseyMethodInformationDetector implements RestInformationDetector {
 
@@ -14,26 +12,21 @@ public class JerseyMethodInformationDetector implements RestInformationDetector 
 //	private final QueryParameterDetector queryParamDetector = new CachedQueryParameterDetector();
 //	private final HeaderParameterDetector headerParameterDetector = new CachedHeaderParameterDetector();
 	
-	private final MethodCache methodCache = new DefaultMethodCache();
-	private final MethodInformationBuilder methodInformationBuilder = new MethodInformationBuilder();
+//	private final MethodCache methodCache = new DefaultMethodCache();
+//	private final MethodInformationBuilder methodInformationBuilder = new MethodInformationBuilder();
+	
+	private final MethodInformationCollector informationCollector = new MethodInformationCollector();
 	
 	@Override
 	public MethodInformation detectRestInformations(final MethodCall methodCall, final String mediaType) {
 		
-		// TODO 'MethodCacheInfo cacheInfo = methodCache.getCacheInfos(method);' instead of *Generator and *Detector
-		// TODO @FromParam, @MatrixParam, @CookieParam
-		
-		methodCache.buildCache(methodCall);
-		final CachableMethodData cachedMethodData = methodCache.getCachedData(methodCall);
-		
-		// TODO Klassen aufteilen: Packages
-		//							- methodinformation
-		//							- cache
-		final MethodInformation information = methodInformationBuilder.build(cachedMethodData, methodCall, mediaType);
+//		methodCache.buildCache(methodCall);
+//		final CachableMethodData cachedMethodData = methodCache.getCachedData(methodCall);
+//		final MethodInformation information = methodInformationBuilder.build(cachedMethodData, methodCall, mediaType);
 		
 		
-		// In 'MethodCall' Objekt verpacken: Method method, Object[] args
-		
+		final MethodInformation information = informationCollector.collect(methodCall, mediaType);
+		// TODO use 'interface RestInformationDetector<T extends MethodInformation>' ?
 		
 //		final String methodUrl = urlGenerator.generate(method, args);
 //		final Object payload = payloadDetector.detectPayload(method, args);
