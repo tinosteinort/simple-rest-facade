@@ -15,12 +15,12 @@ public class MediaTypeCollector extends AbstractCollector<String> {
 	}
 	
 	@Override
-	protected String collect(final MethodCall methodCall, final String mediaType) {
-		return mediaType;
+	protected String collect(final MethodCall methodCall) {
+		return methodCall.getMediaType();
 	}
 
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final String mediaType, final String data) {
+	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final String mediaType) {
 		methodInformation.setMediaType(mediaType);
 	}
 }

@@ -19,7 +19,7 @@ public class UrlTemplateCollector extends AbstractCollector<String> {
 	}
 	
 	@Override
-	protected String collect(final MethodCall methodCall, final String mediaType) {
+	protected String collect(final MethodCall methodCall) {
 		final String urlTemplate = detectServicePath(methodCall.getMethod()) + detectMethodPath(methodCall.getMethod());
 		return urlTemplate;
 	}
@@ -42,7 +42,7 @@ public class UrlTemplateCollector extends AbstractCollector<String> {
 	}
 
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final String mediaType, final String urlTemplate) {
+	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final String urlTemplate) {
 		methodInformation.setMethodUrl(urlTemplate);
 	}
 }

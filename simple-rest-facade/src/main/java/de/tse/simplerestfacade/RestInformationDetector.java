@@ -5,5 +5,5 @@ import de.tse.simplerestfacade.invocation.MethodInformation;
 
 public interface RestInformationDetector {
 
-	MethodInformation detectRestInformations(MethodCall methodCall, String mediaType);
+	MethodInformation detectRestInformations(MethodCall methodCall);
 }

@@ -22,7 +22,7 @@ public class PayloadCollector extends AbstractCollector<Integer> {
 	}
 	
 	@Override
-	protected Integer collect(final MethodCall methodCall, final String mediaType) {
+	protected Integer collect(final MethodCall methodCall) {
 		
 		final Annotation[][] allParameterAnnotations = methodCall.getMethod().getParameterAnnotations();
 		for (int parameterIndex = 0; parameterIndex < allParameterAnnotations.length; parameterIndex++) {
@@ -47,7 +47,7 @@ public class PayloadCollector extends AbstractCollector<Integer> {
 	}
 
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final String mediaType, final Integer payloadIndex) {
+	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final Integer payloadIndex) {
 		final Object payload = payloadIndex == null ? null : methodCall.getArgs()[payloadIndex];
 		methodInformation.setPayload(payload);
 	}

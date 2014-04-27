@@ -23,19 +23,19 @@ public class MethodInformationCollector {
 		// TODO @FromParam, @MatrixParam, @CookieParam
 	}
 	
-	public MethodInformation collect(final MethodCall methodCall, final String mediaType) {
+	public MethodInformation collect(final MethodCall methodCall) {
 		
 		final DefaultMethodInformation methodInformation = new DefaultMethodInformation();
 		
 		for (Collector<?> collector : collectors) {
-			collectAndApply(collector, methodCall, methodInformation, mediaType);
+			collectAndApply(collector, methodCall, methodInformation);
 		}
 		
 		return methodInformation;
 	}
 	
-	private <T> void collectAndApply(final Collector<T> collector, final MethodCall methodCall, final DefaultMethodInformation methodInformation, final String mediaType) {
-		final T data = collector.collect(methodCall, methodInformation, mediaType);
-		collector.apply(methodCall, methodInformation, mediaType, data);
+	private <T> void collectAndApply(final Collector<T> collector, final MethodCall methodCall, final DefaultMethodInformation methodInformation) {
+		final T data = collector.collect(methodCall, methodInformation);
+		collector.apply(methodCall, methodInformation, data);
 	}
 }

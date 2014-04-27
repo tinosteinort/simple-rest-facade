@@ -5,7 +5,7 @@ import de.tse.simplerestfacade.jersey.DefaultMethodInformation;
 
 interface Collector<T> {
 	
-	T collect(MethodCall methodCall, DefaultMethodInformation methodInformation, String mediaType);
+	T collect(MethodCall methodCall, DefaultMethodInformation methodInformation);
 	
-	void apply(final MethodCall methodCall, DefaultMethodInformation methodInformation, String mediaType, T data);
+	void apply(final MethodCall methodCall, DefaultMethodInformation methodInformation, T data);
 }

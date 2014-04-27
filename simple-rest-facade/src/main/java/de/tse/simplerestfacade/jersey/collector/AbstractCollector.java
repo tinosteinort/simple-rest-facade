@@ -13,21 +13,21 @@ abstract class AbstractCollector<T> implements Collector<T> {
 	}
 	
 	@Override
-	public T collect(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final String mediaType) {
+	public T collect(final MethodCall methodCall, final DefaultMethodInformation methodInformation) {
 		if (supportsCaching()) {
 			return cache.createAndGetValue(methodCall, getCacheKey(), new CacheCallback<T>() {
 				@Override
 				public T detectValue() {
-					return collect(methodCall, mediaType);
+					return collect(methodCall);
 				}
 			});
 		}
-		return collect(methodCall, mediaType);
+		return collect(methodCall);
 	}
 	
 	protected abstract boolean supportsCaching();
 	
-	protected abstract T collect(MethodCall methodCall, String mediaType);
+	protected abstract T collect(MethodCall methodCall);
 	
 	private String getCacheKey() {
 		return getClass().getSimpleName();

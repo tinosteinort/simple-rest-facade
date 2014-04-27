@@ -15,13 +15,12 @@ public class ReturnTypeCollector extends AbstractCollector<Class<?>> {
 	}
 	
 	@Override
-	protected Class<?> collect(final MethodCall methodCall, final String mediaType) {
+	protected Class<?> collect(final MethodCall methodCall) {
 		return methodCall.getMethod().getReturnType();
 	}
 
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final String mediaType, final Class<?> returnType) {
+	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final Class<?> returnType) {
 		methodInformation.setReturnType(returnType);
 	}
-
 }

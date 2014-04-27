@@ -22,7 +22,7 @@ class QueryParamCollector extends AbstractCollector<List<ParameterCacheInfo>> {
 	}
 	
 	@Override
-	protected List<ParameterCacheInfo> collect(final MethodCall methodCall, final String mediaType) {
+	protected List<ParameterCacheInfo> collect(final MethodCall methodCall) {
 		
 		final List<ParameterCacheInfo> queryParameterIndexes = new ArrayList<>();
 		
@@ -42,7 +42,7 @@ class QueryParamCollector extends AbstractCollector<List<ParameterCacheInfo>> {
 	}
 	
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final String mediaType, final List<ParameterCacheInfo> queryParameterIndexes) {
+	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final List<ParameterCacheInfo> queryParameterIndexes) {
 		
 		for (ParameterCacheInfo parameterInfo : queryParameterIndexes) {
 			

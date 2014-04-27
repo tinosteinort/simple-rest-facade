@@ -23,8 +23,8 @@ public class RestInvocationHandler implements InvocationHandler {
 	@Override
 	public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
 		
-		final MethodCall call = new MethodCall(method, args);
-		final MethodInformation information = informationDetector.detectRestInformations(call, mediaType);
+		final MethodCall call = new MethodCall(method, args, mediaType);
+		final MethodInformation information = informationDetector.detectRestInformations(call);
 		
 		return serviceCaller.callRestService(information);
 	}
