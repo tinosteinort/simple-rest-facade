@@ -17,7 +17,7 @@ public class PayloadCollector extends AbstractCollector<Integer> {
 	}
 	
 	@Override
-	protected Integer collect(final MethodCall methodCall) {
+	protected Integer collectData(final MethodCall methodCall) {
 		
 		final Annotation[][] allParameterAnnotations = methodCall.getMethod().getParameterAnnotations();
 		for (int parameterIndex = 0; parameterIndex < allParameterAnnotations.length; parameterIndex++) {

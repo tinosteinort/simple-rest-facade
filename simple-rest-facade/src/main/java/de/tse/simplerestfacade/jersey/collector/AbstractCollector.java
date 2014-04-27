@@ -1,7 +1,6 @@
 package de.tse.simplerestfacade.jersey.collector;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.jersey.DefaultMethodInformation;
 import de.tse.simplerestfacade.jersey.collector.DataCache.CacheCallback;
 
 abstract class AbstractCollector<T> implements Collector<T> {
@@ -17,23 +16,23 @@ abstract class AbstractCollector<T> implements Collector<T> {
 	}
 	
 	@Override
-	public T collect(final MethodCall methodCall, final DefaultMethodInformation methodInformation) {
+	public T collect(final MethodCall methodCall) {
 		if (supportsCaching()) {
 			return cache.createAndGetValue(methodCall, getCacheKey(), new CacheCallback<T>() {
 				@Override
 				public T detectValue() {
-					return collect(methodCall);
+					return collectData(methodCall);
 				}
 			});
 		}
-		return collect(methodCall);
+		return collectData(methodCall);
 	}
 	
 	private boolean supportsCaching() {
 		return cache != null;
 	}
 	
-	protected abstract T collect(MethodCall methodCall);
+	protected abstract T collectData(MethodCall methodCall);
 	
 	private String getCacheKey() {
 		return getClass().getSimpleName();

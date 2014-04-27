@@ -10,7 +10,7 @@ public class ReturnTypeCollector extends AbstractCollector<Class<?>> {
 	}
 	
 	@Override
-	protected Class<?> collect(final MethodCall methodCall) {
+	protected Class<?> collectData(final MethodCall methodCall) {
 		return methodCall.getMethod().getReturnType();
 	}
 

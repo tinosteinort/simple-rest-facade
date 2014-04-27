@@ -5,7 +5,7 @@ import de.tse.simplerestfacade.jersey.DefaultMethodInformation;
 
 interface Collector<T> {
 	
-	T collect(MethodCall methodCall, DefaultMethodInformation methodInformation);
+	T collect(MethodCall methodCall);
 	
-	void apply(final MethodCall methodCall, DefaultMethodInformation methodInformation, T data);
+	void apply(MethodCall methodCall, DefaultMethodInformation methodInformation, T data);
 }

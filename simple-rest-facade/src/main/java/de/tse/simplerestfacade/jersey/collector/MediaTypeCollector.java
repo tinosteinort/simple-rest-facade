@@ -6,7 +6,7 @@ import de.tse.simplerestfacade.jersey.DefaultMethodInformation;
 public class MediaTypeCollector extends AbstractCollector<String> {
 
 	@Override
-	protected String collect(final MethodCall methodCall) {
+	protected String collectData(final MethodCall methodCall) {
 		return methodCall.getMediaType();
 	}
 

@@ -35,7 +35,7 @@ public class MethodInformationCollector {
 	}
 	
 	private <T> void collectAndApply(final Collector<T> collector, final MethodCall methodCall, final DefaultMethodInformation methodInformation) {
-		final T data = collector.collect(methodCall, methodInformation);
+		final T data = collector.collect(methodCall);
 		collector.apply(methodCall, methodInformation, data);
 	}
 }

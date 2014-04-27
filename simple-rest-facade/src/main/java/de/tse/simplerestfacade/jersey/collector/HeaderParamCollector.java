@@ -17,7 +17,7 @@ class HeaderParamCollector extends AbstractCollector<List<ParameterCacheInfo>> {
 	}
 	
 	@Override
-	protected List<ParameterCacheInfo> collect(final MethodCall methodCall) {
+	protected List<ParameterCacheInfo> collectData(final MethodCall methodCall) {
 		
 		final List<ParameterCacheInfo> headerParameterIndexes = new ArrayList<>();
 		

@@ -14,7 +14,7 @@ public class UrlTemplateCollector extends AbstractCollector<String> {
 	}
 
 	@Override
-	protected String collect(final MethodCall methodCall) {
+	protected String collectData(final MethodCall methodCall) {
 		final String urlTemplate = detectServicePath(methodCall.getMethod()) + detectMethodPath(methodCall.getMethod());
 		return urlTemplate;
 	}
