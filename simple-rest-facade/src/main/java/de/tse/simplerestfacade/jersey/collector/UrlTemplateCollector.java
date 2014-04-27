@@ -14,11 +14,6 @@ public class UrlTemplateCollector extends AbstractCollector<String> {
 	}
 
 	@Override
-	protected boolean supportsCaching() {
-		return true;
-	}
-	
-	@Override
 	protected String collect(final MethodCall methodCall) {
 		final String urlTemplate = detectServicePath(methodCall.getMethod()) + detectMethodPath(methodCall.getMethod());
 		return urlTemplate;

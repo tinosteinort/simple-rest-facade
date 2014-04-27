@@ -10,11 +10,6 @@ public class ReturnTypeCollector extends AbstractCollector<Class<?>> {
 	}
 	
 	@Override
-	protected boolean supportsCaching() {
-		return true;
-	}
-	
-	@Override
 	protected Class<?> collect(final MethodCall methodCall) {
 		return methodCall.getMethod().getReturnType();
 	}

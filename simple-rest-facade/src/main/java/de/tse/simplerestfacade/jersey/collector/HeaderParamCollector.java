@@ -17,11 +17,6 @@ class HeaderParamCollector extends AbstractCollector<List<ParameterCacheInfo>> {
 	}
 	
 	@Override
-	protected boolean supportsCaching() {
-		return true;
-	}
-	
-	@Override
 	protected List<ParameterCacheInfo> collect(final MethodCall methodCall) {
 		
 		final List<ParameterCacheInfo> headerParameterIndexes = new ArrayList<>();

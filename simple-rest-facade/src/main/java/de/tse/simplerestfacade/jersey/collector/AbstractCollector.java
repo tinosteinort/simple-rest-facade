@@ -8,6 +8,10 @@ abstract class AbstractCollector<T> implements Collector<T> {
 	
 	private final DataCache cache;
 	
+	public AbstractCollector() {
+		this(null);
+	}
+	
 	public AbstractCollector(final DataCache cache) {
 		this.cache = cache;
 	}
@@ -25,7 +29,9 @@ abstract class AbstractCollector<T> implements Collector<T> {
 		return collect(methodCall);
 	}
 	
-	protected abstract boolean supportsCaching();
+	private boolean supportsCaching() {
+		return cache != null;
+	}
 	
 	protected abstract T collect(MethodCall methodCall);
 	

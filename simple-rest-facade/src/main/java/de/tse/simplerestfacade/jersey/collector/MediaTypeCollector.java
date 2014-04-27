@@ -5,15 +5,6 @@ import de.tse.simplerestfacade.jersey.DefaultMethodInformation;
 
 public class MediaTypeCollector extends AbstractCollector<String> {
 
-	public MediaTypeCollector(final DataCache cache) {
-		super(cache);
-	}
-	
-	@Override
-	protected boolean supportsCaching() {
-		return true;
-	}
-	
 	@Override
 	protected String collect(final MethodCall methodCall) {
 		return methodCall.getMediaType();

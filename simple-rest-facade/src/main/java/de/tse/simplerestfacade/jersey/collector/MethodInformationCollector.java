@@ -14,12 +14,12 @@ public class MethodInformationCollector {
 	private final DataCache cache = new DataCache();
 	
 	public MethodInformationCollector() {
-		collectors.addAll(Arrays.asList(new QueryParamCollector(cache),
+		collectors.addAll(Arrays.asList(new MediaTypeCollector(),
+										new QueryParamCollector(cache),
 										new HeaderParamCollector(cache),
 										new UrlTemplateCollector(cache),
-										new MediaTypeCollector(cache),
-										new ReturnTypeCollector(cache),
-										new PayloadCollector(cache)));
+										new PayloadCollector(cache),
+										new ReturnTypeCollector(cache)));
 		// TODO @FromParam, @MatrixParam, @CookieParam
 	}
 	

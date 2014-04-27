@@ -17,11 +17,6 @@ public class PayloadCollector extends AbstractCollector<Integer> {
 	}
 	
 	@Override
-	protected boolean supportsCaching() {
-		return true;
-	}
-	
-	@Override
 	protected Integer collect(final MethodCall methodCall) {
 		
 		final Annotation[][] allParameterAnnotations = methodCall.getMethod().getParameterAnnotations();
