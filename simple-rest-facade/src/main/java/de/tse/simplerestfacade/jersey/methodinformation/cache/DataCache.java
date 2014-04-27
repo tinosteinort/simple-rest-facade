@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey.collector;
+package de.tse.simplerestfacade.jersey.methodinformation.cache;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
 
-class DataCache {
+public class DataCache {
 	
 	private final Map<Method, Map<String, CacheEntry<?>>> cache = new HashMap<>();
 	private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
@@ -57,9 +57,5 @@ class DataCache {
 			cache.put(methodCall.getMethod(), methodCache);
 		}
 		methodCache.put(key, new CacheEntry<T>(value));
-	}
-	
-	static interface CacheCallback<T> {
-		T detectValue();
 	}
 }

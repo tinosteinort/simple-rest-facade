@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey.collector;
+package de.tse.simplerestfacade.jersey.methodinformation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +6,13 @@ import java.util.List;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
 import de.tse.simplerestfacade.invocation.MethodInformation;
-import de.tse.simplerestfacade.jersey.DefaultMethodInformation;
+import de.tse.simplerestfacade.jersey.methodinformation.cache.DataCache;
+import de.tse.simplerestfacade.jersey.methodinformation.collector.HeaderParamCollector;
+import de.tse.simplerestfacade.jersey.methodinformation.collector.MediaTypeCollector;
+import de.tse.simplerestfacade.jersey.methodinformation.collector.PayloadCollector;
+import de.tse.simplerestfacade.jersey.methodinformation.collector.QueryParamCollector;
+import de.tse.simplerestfacade.jersey.methodinformation.collector.ReturnTypeCollector;
+import de.tse.simplerestfacade.jersey.methodinformation.collector.UrlTemplateCollector;
 
 public class MethodInformationCollector {
 
@@ -14,8 +20,8 @@ public class MethodInformationCollector {
 	private final DataCache cache = new DataCache();
 	
 	public MethodInformationCollector() {
-		collectors.addAll(Arrays.asList(new MediaTypeCollector(),
-										new QueryParamCollector(cache),
+		collectors.addAll(Arrays.asList(new QueryParamCollector(cache),
+										new MediaTypeCollector(),
 										new HeaderParamCollector(cache),
 										new UrlTemplateCollector(cache),
 										new PayloadCollector(cache),

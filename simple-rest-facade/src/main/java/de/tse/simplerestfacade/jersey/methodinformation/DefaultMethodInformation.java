@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey;
+package de.tse.simplerestfacade.jersey.methodinformation;
 
 import java.util.ArrayList;
 import java.util.List;

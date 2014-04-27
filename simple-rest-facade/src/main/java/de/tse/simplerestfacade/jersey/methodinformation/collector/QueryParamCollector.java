@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey.collector;
+package de.tse.simplerestfacade.jersey.methodinformation.collector;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -8,9 +8,10 @@ import javax.ws.rs.QueryParam;
 
 import de.tse.simplerestfacade.invocation.KeyValue;
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.jersey.DefaultMethodInformation;
+import de.tse.simplerestfacade.jersey.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.jersey.methodinformation.cache.DataCache;
 
-class QueryParamCollector extends AbstractCollector<List<ParameterCacheInfo>> {
+public class QueryParamCollector extends AbstractCollector<List<ParameterCacheInfo>> {
 
 	public QueryParamCollector(final DataCache cache) {
 		super(cache);

@@ -1,11 +1,12 @@
-package de.tse.simplerestfacade.jersey.collector;
+package de.tse.simplerestfacade.jersey.methodinformation.collector;
 
 import java.lang.reflect.Method;
 
 import javax.ws.rs.Path;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.jersey.DefaultMethodInformation;
+import de.tse.simplerestfacade.jersey.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.jersey.methodinformation.cache.DataCache;
 
 public class UrlTemplateCollector extends AbstractCollector<String> {
 	

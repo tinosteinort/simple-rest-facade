@@ -1,9 +1,8 @@
-package de.tse.simplerestfacade.jersey.collector;
+package de.tse.simplerestfacade.jersey.methodinformation;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.jersey.DefaultMethodInformation;
 
-interface Collector<T> {
+public interface Collector<T> {
 	
 	T collect(MethodCall methodCall);
 	

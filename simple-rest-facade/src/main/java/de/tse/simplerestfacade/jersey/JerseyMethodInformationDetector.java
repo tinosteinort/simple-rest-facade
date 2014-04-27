@@ -3,7 +3,7 @@ package de.tse.simplerestfacade.jersey;
 import de.tse.simplerestfacade.RestInformationDetector;
 import de.tse.simplerestfacade.invocation.MethodCall;
 import de.tse.simplerestfacade.invocation.MethodInformation;
-import de.tse.simplerestfacade.jersey.collector.MethodInformationCollector;
+import de.tse.simplerestfacade.jersey.methodinformation.MethodInformationCollector;
 
 public class JerseyMethodInformationDetector implements RestInformationDetector {
 
