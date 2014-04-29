@@ -3,6 +3,8 @@ package de.tse.simplerestfacade.jersey;
 import java.net.URI;
 import java.util.List;
 
+import javax.ws.rs.HttpMethod;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
@@ -29,11 +31,46 @@ public class JerseyServiceCaller implements RestServiceCaller {
 		Builder webResourceBuilder = webResource.accept(methodInformation.getMediaType()).entity(methodInformation.getPayload());
 		webResourceBuilder = applyHeaderParams(webResourceBuilder, methodInformation.getHeaderParameter());
 		
-		if (methodInformation.getPayload() == null) {
-			return webResourceBuilder.get(methodInformation.getReturnType());
-		}
+		return executeRequest(webResourceBuilder, methodInformation);
+	}
+	
+	private Object executeRequest(final Builder webResourceBuilder, final MethodInformation methodInformation) {
 		
-		return webResourceBuilder.post(methodInformation.getReturnType(), methodInformation.getPayload());
+		final boolean hasPayload = methodInformation.getPayload() == null;
+		
+		switch (methodInformation.getHttpMethod()) {
+		
+			case HttpMethod.DELETE:
+				if (hasPayload) {
+					return webResourceBuilder.delete(methodInformation.getReturnType());
+				}
+				return webResourceBuilder.delete(methodInformation.getReturnType(), methodInformation.getPayload());
+				
+			case HttpMethod.GET:
+				if (hasPayload) {
+					return webResourceBuilder.get(methodInformation.getReturnType());
+				}
+				return webResourceBuilder.post(methodInformation.getReturnType(), methodInformation.getPayload());
+				
+			case HttpMethod.POST:
+				if (hasPayload) {
+					return webResourceBuilder.post(methodInformation.getReturnType());
+				}
+				return webResourceBuilder.post(methodInformation.getReturnType(), methodInformation.getPayload());
+				
+			case HttpMethod.PUT:
+				if (hasPayload) {
+					return webResourceBuilder.put(methodInformation.getReturnType());
+				}
+				return webResourceBuilder.put(methodInformation.getReturnType(), methodInformation.getPayload());
+				
+			case HttpMethod.HEAD:
+			case HttpMethod.OPTIONS:
+				throw new UnsupportedOperationException("not yet implemented");
+
+			default:
+				throw new RuntimeException("invlalid HttpMethod");
+		}
 	}
 
 	private WebResource applyQueryParams(final WebResource webResource, final List<KeyValue> queryParams) {

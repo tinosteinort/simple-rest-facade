@@ -13,7 +13,7 @@ public class JerseyMethodInformationDetector implements RestInformationDetector 
 	public MethodInformation detectRestInformations(final MethodCall methodCall) {
 		
 		final MethodInformation information = informationCollector.collect(methodCall);
-		// TODO use 'interface RestInformationDetector<T extends MethodInformation>' ?
+		// TODO RestClientException with HTTP Response Code
 		
 		return information;
 	}

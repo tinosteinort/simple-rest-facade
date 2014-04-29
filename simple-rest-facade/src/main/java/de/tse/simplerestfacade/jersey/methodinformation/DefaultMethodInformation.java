@@ -14,6 +14,7 @@ public class DefaultMethodInformation implements MethodInformation {
 	private String mediaType;
 	private Object payload;
 	private Class<?> returnType;
+	private String httpMethod;
 	
 	@Override
 	public String getMethodUrl() {
@@ -55,5 +56,13 @@ public class DefaultMethodInformation implements MethodInformation {
 	}
 	public void setReturnType(final Class<?> returnType) {
 		this.returnType = returnType;
+	}
+	
+	@Override
+	public String getHttpMethod() {
+		return httpMethod;
+	}
+	public void setHttpMethod(final String httpMethod) {
+		this.httpMethod = httpMethod;
 	}
 }
