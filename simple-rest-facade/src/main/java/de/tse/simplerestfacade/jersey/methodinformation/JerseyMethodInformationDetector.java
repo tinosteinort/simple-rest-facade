@@ -14,7 +14,7 @@ import de.tse.simplerestfacade.jersey.methodinformation.collector.MediaTypeColle
 import de.tse.simplerestfacade.jersey.methodinformation.collector.PayloadCollector;
 import de.tse.simplerestfacade.jersey.methodinformation.collector.QueryParamCollector;
 import de.tse.simplerestfacade.jersey.methodinformation.collector.ReturnTypeCollector;
-import de.tse.simplerestfacade.jersey.methodinformation.collector.UrlTemplateCollector;
+import de.tse.simplerestfacade.jersey.methodinformation.collector.UrlCollector;
 
 public class JerseyMethodInformationDetector implements RestInformationDetector {
 
@@ -25,7 +25,7 @@ public class JerseyMethodInformationDetector implements RestInformationDetector 
 		dataCollectors.addAll(Arrays.asList(new QueryParamCollector(cache),
 											new MediaTypeCollector(),
 											new HeaderParamCollector(cache),
-											new UrlTemplateCollector(cache),
+											new UrlCollector(cache),
 											new PayloadCollector(cache),
 											new ReturnTypeCollector(cache),
 											new HttpMethodCollector(cache)));

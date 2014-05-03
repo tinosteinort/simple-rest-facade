@@ -12,9 +12,9 @@ import de.tse.simplerestfacade.invocation.MethodCall;
 import de.tse.simplerestfacade.jersey.methodinformation.DefaultMethodInformation;
 import de.tse.simplerestfacade.jersey.methodinformation.cache.DataCache;
 
-public class UrlTemplateCollector extends AbstractCollector<UrlData> {
+public class UrlCollector extends AbstractCollector<UrlData> {
 	
-	public UrlTemplateCollector(final DataCache cache) {
+	public UrlCollector(final DataCache cache) {
 		super(cache);
 	}
 
