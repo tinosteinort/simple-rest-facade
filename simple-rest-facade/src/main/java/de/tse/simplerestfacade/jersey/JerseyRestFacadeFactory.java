@@ -8,6 +8,7 @@ import de.tse.simplerestfacade.RestInformationDetector;
 import de.tse.simplerestfacade.RestInterfaceValidator;
 import de.tse.simplerestfacade.RestServiceCaller;
 import de.tse.simplerestfacade.invocation.RestInvocationHandler;
+import de.tse.simplerestfacade.jersey.methodinformation.JerseyMethodInformationDetector;
 
 public class JerseyRestFacadeFactory extends RestFacadeFactory {
 
