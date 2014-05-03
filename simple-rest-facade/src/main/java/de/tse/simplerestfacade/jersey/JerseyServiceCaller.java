@@ -6,12 +6,16 @@ import java.util.List;
 import javax.ws.rs.HttpMethod;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.UniformInterfaceException;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 
+import de.tse.simplerestfacade.RestClientException;
 import de.tse.simplerestfacade.RestServiceCaller;
-import de.tse.simplerestfacade.invocation.MethodInformation;
 import de.tse.simplerestfacade.invocation.KeyValue;
+import de.tse.simplerestfacade.invocation.MethodInformation;
 
 public class JerseyServiceCaller implements RestServiceCaller {
 
@@ -23,7 +27,7 @@ public class JerseyServiceCaller implements RestServiceCaller {
 	}
 	
 	@Override
-	public Object callRestService(final MethodInformation methodInformation) {
+	public Object callRestService(final MethodInformation methodInformation) throws RestClientException {
 		
 		WebResource webResource = client.resource(endpoint).path(methodInformation.getMethodUrl());
 		webResource = applyQueryParams(webResource, methodInformation.getQueryParameter());
@@ -31,7 +35,16 @@ public class JerseyServiceCaller implements RestServiceCaller {
 		Builder webResourceBuilder = webResource.accept(methodInformation.getMediaType()).entity(methodInformation.getPayload());
 		webResourceBuilder = applyHeaderParams(webResourceBuilder, methodInformation.getHeaderParameter());
 		
-		return executeRequest(webResourceBuilder, methodInformation);
+		try {
+			return executeRequest(webResourceBuilder, methodInformation);
+		}
+		catch (UniformInterfaceException ex) {
+			final ClientResponse response = ex.getResponse();
+			throw new RestClientException(response.getStatus(), ex);
+		}
+		catch (ClientHandlerException ex) {
+			throw new RestClientException(ex);
+		}
 	}
 	
 	private Object executeRequest(final Builder webResourceBuilder, final MethodInformation methodInformation) {
@@ -66,10 +79,8 @@ public class JerseyServiceCaller implements RestServiceCaller {
 				
 			case HttpMethod.HEAD:
 			case HttpMethod.OPTIONS:
-				throw new UnsupportedOperationException("not yet implemented");
-
 			default:
-				throw new RuntimeException("invlalid HttpMethod");
+				throw new RestClientException("not supported http method: " + methodInformation.getHttpMethod());
 		}
 	}
 
@@ -77,7 +88,7 @@ public class JerseyServiceCaller implements RestServiceCaller {
 		
 		WebResource newResource = webResource;
 		for (KeyValue queryParam : queryParams) {
-			final String stringValue = String.valueOf(queryParam.getValue()); // TODO "" or "null" if paramValue is null?
+			final String stringValue = queryParam.getValue() == null ? "" : String.valueOf(queryParam.getValue());
 			newResource = newResource.queryParam(queryParam.getKey(), stringValue);
 		}
 		
@@ -88,7 +99,7 @@ public class JerseyServiceCaller implements RestServiceCaller {
 		
 		Builder newBuilder = webResourceBuilder;
 		for (KeyValue headerParam : headerParams) {
-			final String stringValue = String.valueOf(headerParam.getValue()); // TODO "" or "null" if paramValue is null?
+			final String stringValue = headerParam.getValue() == null ? "" : String.valueOf(headerParam.getValue());
 			newBuilder = webResourceBuilder.header(headerParam.getKey(), stringValue);
 		}
 		

@@ -12,9 +12,6 @@ public class JerseyMethodInformationDetector implements RestInformationDetector 
 	@Override
 	public MethodInformation detectRestInformations(final MethodCall methodCall) {
 		
-		final MethodInformation information = informationCollector.collect(methodCall);
-		// TODO RestClientException with HTTP Response Code
-		
-		return information;
+		return informationCollector.collect(methodCall);
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 
+import de.tse.simplerestfacade.RestClientException;
 import de.tse.simplerestfacade.RestFacadeFactory;
 import de.tse.simplerestfacade.example.consumer.api.User;
 import de.tse.simplerestfacade.example.consumer.api.UserService;
@@ -25,8 +26,8 @@ public class RestClient {
 	public void createUsers() {
 		
 		final List<User> users = Arrays.asList(new User("Max", "M."), 
-											   new User("John", "D."),
-											   new User("Emma", "W."));
+												new User("John", "D."),
+												new User("Emma", "W."));
 		
 		System.out.println("Create users...");
 		for (User user : users) {
@@ -51,9 +52,14 @@ public class RestClient {
 		final RestServer server = new RestServer("http://localhost:8080/restexample");
 		server.start();
 		
-		final RestClient client = new RestClient("http://localhost:8080/restexample");
-		client.createUsers();
-		client.findUsers("Max", "M");
+		try {
+			final RestClient client = new RestClient("http://localhost:8080/restexample");
+			client.createUsers();
+			client.findUsers("Max", "M");
+		}
+		catch (RestClientException ex) {
+			System.err.println("Es ist ein Fehler aufgetreten, HTTP ReturnCode " + ex.getHttpResponseCode() + " :" + ex.getMessage());
+		}
 		
 		server.stop();
 	}

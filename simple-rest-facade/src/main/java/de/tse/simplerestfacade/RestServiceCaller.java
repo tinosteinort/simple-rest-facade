@@ -5,5 +5,5 @@ import de.tse.simplerestfacade.invocation.MethodInformation;
 
 public interface RestServiceCaller {
 
-	Object callRestService(MethodInformation methodInformation);
+	Object callRestService(MethodInformation methodInformation) throws RestClientException;
 }
