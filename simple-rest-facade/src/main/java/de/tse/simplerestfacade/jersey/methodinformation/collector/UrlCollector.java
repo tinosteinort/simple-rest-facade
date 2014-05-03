@@ -4,6 +4,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -72,12 +73,22 @@ public class UrlCollector extends AbstractCollector<UrlData> {
 		String methodUrl = urlData.getUrlTemplate();
 		
 		for (ParameterCacheInfo pathParameter : urlData.getPathParams()) {
-			final String key = "\\{" + pathParameter.getParameterKey() + "\\}";
-			final Object value = methodCall.getArgs()[pathParameter.getIndex()];
-			methodUrl = methodUrl.replace(key, value == null ? "" : String.valueOf(value));
+			final String key = generateKeyReplacement(pathParameter);
+			final String value = generatePathParameterValue(methodCall, pathParameter);
+			methodUrl = methodUrl.replaceAll(key, value);
 		}
 		
 		methodInformation.setMethodUrl(methodUrl);
+	}
+	
+	private String generateKeyReplacement(final ParameterCacheInfo pathParameter) {
+		return "\\{" + pathParameter.getParameterKey() + "\\}";
+	}
+	
+	private String generatePathParameterValue(final MethodCall methodCall, final ParameterCacheInfo pathParameter) {
+		final Object value = methodCall.getArgs()[pathParameter.getIndex()];
+		final String stringValue = value == null ? "" : String.valueOf(value);
+		return Matcher.quoteReplacement(stringValue);
 	}
 }
 
