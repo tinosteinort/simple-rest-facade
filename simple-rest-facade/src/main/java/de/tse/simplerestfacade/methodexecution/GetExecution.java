@@ -10,13 +10,12 @@ import org.apache.http.client.methods.HttpGet;
 
 import de.tse.simplerestfacade.ResultConverterResponseHandler;
 import de.tse.simplerestfacade.invocation.MethodInformation;
-import de.tse.simplerestfacade.marshalling.Marshaller;
-import de.tse.simplerestfacade.marshalling.Unmarshaller;
+import de.tse.simplerestfacade.marshalling.MarshallingConfig;
 
 class GetExecution extends HttpMethodExecution {
     
-    protected GetExecution(final URI endpoint, final HttpClient httpClient, final Unmarshaller unmarshaller, final Marshaller marshaller) {
-        super(endpoint, httpClient, unmarshaller, marshaller);
+    protected GetExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfig marshallingConfig) {
+        super(endpoint, httpClient, marshallingConfig);
     }
 
     @Override public Object execute(final HttpClient httpClient, final MethodInformation methodInformation)
@@ -25,6 +24,6 @@ class GetExecution extends HttpMethodExecution {
         final HttpGet get = new HttpGet(targetUriFrom(methodInformation));
         addHeader(get, methodInformation);
         
-        return httpClient.execute(get, new ResultConverterResponseHandler(unmarshaller, methodInformation.getReturnType()));
+        return httpClient.execute(get, new ResultConverterResponseHandler(getUnmarshaller(), methodInformation.getReturnType()));
     }
 }

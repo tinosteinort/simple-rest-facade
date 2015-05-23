@@ -5,13 +5,10 @@ import java.lang.reflect.Proxy;
 import java.net.URI;
 import java.util.Optional;
 
-import javax.ws.rs.core.MediaType;
-
 import org.apache.http.client.HttpClient;
 
 import de.tse.simplerestfacade.invocation.RestInvocationHandler;
-import de.tse.simplerestfacade.marshalling.Marshaller;
-import de.tse.simplerestfacade.marshalling.Unmarshaller;
+import de.tse.simplerestfacade.marshalling.MarshallingConfig;
 import de.tse.simplerestfacade.methodinformation.MethodInformationDetector;
 
 public class DefaultRestFacadeFactory implements RestFacadeFactory {
@@ -21,19 +18,17 @@ public class DefaultRestFacadeFactory implements RestFacadeFactory {
 	private final URI endpoint;
 	private final HttpClient httpClient;
 	private final Optional<RestInterfaceValidator> validator;
-    private final Unmarshaller unmarshaller;
-    private final Marshaller marshaller;
+    private final MarshallingConfig marshallingConfig;
 	
-	public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final boolean validateRest, final Unmarshaller unmarshaller, final Marshaller marshaller) {
+	public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final boolean validateRest, final MarshallingConfig marshallingConfig) {
 	    this.endpoint = endpoint;
 		this.httpClient = httpClient;
 		this.validator = validateRest ? Optional.of(new DefaultRestInterfaceValidator()) : Optional.empty();
-		this.unmarshaller = unmarshaller;
-		this.marshaller = marshaller;
+		this.marshallingConfig = marshallingConfig;
 	}
 	
-    public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final Unmarshaller unmarshaller, final Marshaller marshaller) {
-        this(endpoint, httpClient, DEFAULT_VALIDATE_REST, unmarshaller, marshaller);
+    public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final MarshallingConfig marshallingConfig) {
+        this(endpoint, httpClient, DEFAULT_VALIDATE_REST, marshallingConfig);
     }
 
     @Override
@@ -41,7 +36,7 @@ public class DefaultRestFacadeFactory implements RestFacadeFactory {
 
 	    validator.ifPresent(validator -> validator.validate(facadeClass, mediaType));
 		
-		final RestServiceCaller serviceCaller = new DefaultServiceCaller(endpoint, httpClient, unmarshaller, marshaller);
+		final RestServiceCaller serviceCaller = new DefaultServiceCaller(endpoint, httpClient, marshallingConfig);
 		final RestInformationDetector informationDetector = new MethodInformationDetector();
 		
 		final InvocationHandler invocationHandler = new RestInvocationHandler(serviceCaller, informationDetector, mediaType);

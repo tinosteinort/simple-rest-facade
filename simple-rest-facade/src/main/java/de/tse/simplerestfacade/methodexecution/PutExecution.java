@@ -10,13 +10,12 @@ import org.apache.http.client.methods.HttpPut;
 
 import de.tse.simplerestfacade.ResultConverterResponseHandler;
 import de.tse.simplerestfacade.invocation.MethodInformation;
-import de.tse.simplerestfacade.marshalling.Marshaller;
-import de.tse.simplerestfacade.marshalling.Unmarshaller;
+import de.tse.simplerestfacade.marshalling.MarshallingConfig;
 
 class PutExecution extends HttpMethodExecution {
     
-    protected PutExecution(final URI endpoint, final HttpClient httpClient, final Unmarshaller unmarshaller, final Marshaller marshaller) {
-        super(endpoint, httpClient, unmarshaller, marshaller);
+    protected PutExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfig marshallingConfig) {
+        super(endpoint, httpClient, marshallingConfig);
     }
 
     @Override public Object execute(final HttpClient httpClient, final MethodInformation methodInformation)
@@ -25,6 +24,6 @@ class PutExecution extends HttpMethodExecution {
         final HttpPut put = new HttpPut(targetUriFrom(methodInformation));
         addHeader(put, methodInformation);
         
-        return httpClient.execute(put, new ResultConverterResponseHandler(unmarshaller, methodInformation.getReturnType()));
+        return httpClient.execute(put, new ResultConverterResponseHandler(getUnmarshaller(), methodInformation.getReturnType()));
     }
 }

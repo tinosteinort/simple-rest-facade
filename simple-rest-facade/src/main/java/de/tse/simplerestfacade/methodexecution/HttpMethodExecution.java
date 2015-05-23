@@ -14,20 +14,19 @@ import org.apache.http.message.AbstractHttpMessage;
 import de.tse.simplerestfacade.invocation.KeyValue;
 import de.tse.simplerestfacade.invocation.MethodInformation;
 import de.tse.simplerestfacade.marshalling.Marshaller;
+import de.tse.simplerestfacade.marshalling.MarshallingConfig;
 import de.tse.simplerestfacade.marshalling.Unmarshaller;
 
 abstract class HttpMethodExecution implements MethodExecution {
 
     private final URI endpoint;
     private final HttpClient httpClient;
-    protected final Unmarshaller unmarshaller;
-    protected final Marshaller marshaller;
+    private final MarshallingConfig marshallingConfig;
 
-    protected HttpMethodExecution(final URI endpoint, final HttpClient httpClient, final Unmarshaller unmarshaller, final Marshaller marshaller) {
+    protected HttpMethodExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfig marshallingConfig) {
         this.httpClient = httpClient;
         this.endpoint = endpoint;
-        this.unmarshaller = unmarshaller;
-        this.marshaller = marshaller;
+        this.marshallingConfig = marshallingConfig;
     }
     
     @Override public Object execute(final MethodInformation methodInformation)
@@ -58,5 +57,12 @@ abstract class HttpMethodExecution implements MethodExecution {
         for (KeyValue pair : methodInformation.getHeaderParameter()) {
             message.addHeader(pair.getKey(), (String) pair.getValue());
         }
+    }
+    
+    protected Marshaller getMarshaller() {
+        return marshallingConfig.getMarshaller();
+    }
+    protected Unmarshaller getUnmarshaller() {
+        return marshallingConfig.getUnmarshaller();
     }
 }

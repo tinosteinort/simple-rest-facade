@@ -11,13 +11,12 @@ import org.apache.http.entity.StringEntity;
 
 import de.tse.simplerestfacade.ResultConverterResponseHandler;
 import de.tse.simplerestfacade.invocation.MethodInformation;
-import de.tse.simplerestfacade.marshalling.Marshaller;
-import de.tse.simplerestfacade.marshalling.Unmarshaller;
+import de.tse.simplerestfacade.marshalling.MarshallingConfig;
 
 class PostExecution extends HttpMethodExecution {
     
-    protected PostExecution(final URI endpoint, final HttpClient httpClient, final Unmarshaller unmarshaller, final Marshaller marshaller) {
-        super(endpoint, httpClient, unmarshaller, marshaller);
+    protected PostExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfig marshallingConfig) {
+        super(endpoint, httpClient, marshallingConfig);
     }
 
     @Override public Object execute(final HttpClient httpClient, final MethodInformation methodInformation)
@@ -27,8 +26,8 @@ class PostExecution extends HttpMethodExecution {
         addHeader(post, methodInformation);
         
         // TODO je nach Header.ACCEPT (json/xml) den richtigen marshaller wählen
-        post.setEntity(new StringEntity(marshaller.marshall(methodInformation.getPayload())));
+        post.setEntity(new StringEntity(getMarshaller().marshall(methodInformation.getPayload())));
         
-        return httpClient.execute(post, new ResultConverterResponseHandler(unmarshaller, methodInformation.getReturnType()));
+        return httpClient.execute(post, new ResultConverterResponseHandler(getUnmarshaller(), methodInformation.getReturnType()));
     }
 }
