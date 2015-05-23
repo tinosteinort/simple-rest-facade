@@ -48,8 +48,8 @@ public class GetTest extends JerseyTest {
     
     private <T> T asService(final Class<T> serviceClass, final String mediaType) {
         final HttpClient httpClient = HttpClientBuilder.create().build();
-        final RestFacadeFactory factory = new DefaultRestFacadeFactory(getBaseUri(), httpClient, new JaxbMarshallingConfig());        
-        return factory.createFacade(serviceClass, mediaType);
+        final RestFacadeFactory factory = new DefaultRestFacadeFactory(getBaseUri(), httpClient, mediaType, new JaxbMarshallingConfig());        
+        return factory.createFacade(serviceClass);
     }
     
     @Test
