@@ -17,20 +17,27 @@ public class DefaultRestFacadeFactory implements RestFacadeFactory {
     
 	private final URI endpoint;
 	private final HttpClient httpClient;
+	private final String defaultMediaType;
 	private final Optional<RestInterfaceValidator> validator;
     private final MarshallingConfig marshallingConfig;
 	
-	public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final boolean validateRest, final MarshallingConfig marshallingConfig) {
+	public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final String defaultMediaType, final boolean validateRest, final MarshallingConfig marshallingConfig) {
 	    this.endpoint = endpoint;
 		this.httpClient = httpClient;
+		this.defaultMediaType = defaultMediaType;
 		this.validator = validateRest ? Optional.of(new DefaultRestInterfaceValidator()) : Optional.empty();
 		this.marshallingConfig = marshallingConfig;
 	}
 	
-    public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final MarshallingConfig marshallingConfig) {
-        this(endpoint, httpClient, DEFAULT_VALIDATE_REST, marshallingConfig);
+    public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final String defaultMediaType, final MarshallingConfig marshallingConfig) {
+        this(endpoint, httpClient, defaultMediaType, DEFAULT_VALIDATE_REST, marshallingConfig);
     }
 
+    @Override
+    public <T> T createFacade(final Class<T> facadeClass) {
+        return createFacade(facadeClass, defaultMediaType);
+    }
+    
     @Override
     public <T> T createFacade(final Class<T> facadeClass, final String mediaType) {
 
