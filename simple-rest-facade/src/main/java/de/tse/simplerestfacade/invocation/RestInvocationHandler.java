@@ -15,6 +15,7 @@ public class RestInvocationHandler implements InvocationHandler {
 	public RestInvocationHandler(final RestServiceCaller serviceCaller, 
 								 final RestInformationDetector restInformationDetector, 
 								 final String mediaType) {
+	    
 		this.serviceCaller = serviceCaller;
 		this.informationDetector = restInformationDetector;
 		this.mediaType = mediaType;

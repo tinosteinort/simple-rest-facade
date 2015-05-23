@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey.methodinformation.collector;
+package de.tse.simplerestfacade.methodinformation.collector;
 
 import java.lang.annotation.Annotation;
 
@@ -7,8 +7,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.jersey.methodinformation.DefaultMethodInformation;
-import de.tse.simplerestfacade.jersey.methodinformation.cache.DataCache;
+import de.tse.simplerestfacade.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 
 public class PayloadCollector extends AbstractCollector<Integer> {
@@ -44,6 +44,10 @@ public class PayloadCollector extends AbstractCollector<Integer> {
 
 	@Override
 	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final Integer payloadIndex) {
+	    // TODO
+//	    final Class<?> payloadType = methodCall.getMethod().getParameterTypes()[payloadIndex];
+//	    methodInformation.setPayloadType(payloadType); 
+	    
 		final Object payload = payloadIndex == null ? null : methodCall.getArgs()[payloadIndex];
 		methodInformation.setPayload(payload);
 	}

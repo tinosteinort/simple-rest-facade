@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey.methodinformation;
+package de.tse.simplerestfacade.methodinformation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,21 +7,21 @@ import java.util.List;
 import de.tse.simplerestfacade.RestInformationDetector;
 import de.tse.simplerestfacade.invocation.MethodCall;
 import de.tse.simplerestfacade.invocation.MethodInformation;
-import de.tse.simplerestfacade.jersey.methodinformation.cache.DataCache;
-import de.tse.simplerestfacade.jersey.methodinformation.collector.HeaderParamCollector;
-import de.tse.simplerestfacade.jersey.methodinformation.collector.HttpMethodCollector;
-import de.tse.simplerestfacade.jersey.methodinformation.collector.MediaTypeCollector;
-import de.tse.simplerestfacade.jersey.methodinformation.collector.PayloadCollector;
-import de.tse.simplerestfacade.jersey.methodinformation.collector.QueryParamCollector;
-import de.tse.simplerestfacade.jersey.methodinformation.collector.ReturnTypeCollector;
-import de.tse.simplerestfacade.jersey.methodinformation.collector.UrlCollector;
+import de.tse.simplerestfacade.methodinformation.cache.DataCache;
+import de.tse.simplerestfacade.methodinformation.collector.HeaderParamCollector;
+import de.tse.simplerestfacade.methodinformation.collector.HttpMethodCollector;
+import de.tse.simplerestfacade.methodinformation.collector.MediaTypeCollector;
+import de.tse.simplerestfacade.methodinformation.collector.PayloadCollector;
+import de.tse.simplerestfacade.methodinformation.collector.QueryParamCollector;
+import de.tse.simplerestfacade.methodinformation.collector.ReturnTypeCollector;
+import de.tse.simplerestfacade.methodinformation.collector.UrlCollector;
 
-public class JerseyMethodInformationDetector implements RestInformationDetector {
+public class MethodInformationDetector implements RestInformationDetector {
 
 	private final List<Collector<?>> dataCollectors = new ArrayList<>();
 	private final DataCache cache = new DataCache();
 	
-	public JerseyMethodInformationDetector() {
+	public MethodInformationDetector() {
 		dataCollectors.addAll(Arrays.asList(new QueryParamCollector(cache),
 											new MediaTypeCollector(),
 											new HeaderParamCollector(cache),

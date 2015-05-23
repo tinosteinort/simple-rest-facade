@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey.methodinformation.collector;
+package de.tse.simplerestfacade.methodinformation.collector;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -10,8 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.jersey.methodinformation.DefaultMethodInformation;
-import de.tse.simplerestfacade.jersey.methodinformation.cache.DataCache;
+import de.tse.simplerestfacade.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 public class UrlCollector extends AbstractCollector<UrlData> {
 	

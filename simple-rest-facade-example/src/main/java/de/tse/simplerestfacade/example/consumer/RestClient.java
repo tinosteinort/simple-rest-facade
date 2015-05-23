@@ -1,17 +1,23 @@
 package de.tse.simplerestfacade.example.consumer;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
+
+import de.tse.simplerestfacade.DefaultRestFacadeFactory;
 import de.tse.simplerestfacade.RestClientException;
 import de.tse.simplerestfacade.RestFacadeFactory;
 import de.tse.simplerestfacade.example.consumer.api.User;
 import de.tse.simplerestfacade.example.consumer.api.UserService;
 import de.tse.simplerestfacade.example.provider.RestServer;
-import de.tse.simplerestfacade.jersey.JerseyRestFacadeFactory;
+import de.tse.simplerestfacade.marshalling.JaxbMarshaller;
+import de.tse.simplerestfacade.marshalling.JaxbUnmarshaller;
 
 public class RestClient {
 
@@ -19,7 +25,9 @@ public class RestClient {
 	
 	public RestClient(final String url) {
 		
-		final RestFacadeFactory factory = new JerseyRestFacadeFactory(url);
+	    final HttpClient httpClient = HttpClientBuilder.create().build();
+	    
+		final RestFacadeFactory factory = new DefaultRestFacadeFactory(URI.create(url), httpClient, new JaxbUnmarshaller(), new JaxbMarshaller());
 		this.userService = factory.createFacade(UserService.class, MediaType.APPLICATION_XML);
 	}
 	

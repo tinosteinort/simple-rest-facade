@@ -1,8 +1,7 @@
-package de.tse.simplerestfacade.jersey;
+package de.tse.simplerestfacade;
 
-import de.tse.simplerestfacade.RestInterfaceValidator;
 
-public class JerseyRestInterfaceValidator implements RestInterfaceValidator {
+public class DefaultRestInterfaceValidator implements RestInterfaceValidator {
 
 	@Override
 	public void validate(final Class<?> interfaceClass, final String mediaType) {

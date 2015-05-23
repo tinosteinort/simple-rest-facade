@@ -1,6 +1,7 @@
-package de.tse.simplerestfacade.jersey.methodinformation.collector;
+package de.tse.simplerestfacade.methodinformation.collector;
 
 import java.lang.annotation.Annotation;
+import java.util.Optional;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -11,8 +12,8 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.jersey.methodinformation.DefaultMethodInformation;
-import de.tse.simplerestfacade.jersey.methodinformation.cache.DataCache;
+import de.tse.simplerestfacade.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 public class HttpMethodCollector extends AbstractCollector<String> {
 
@@ -22,18 +23,13 @@ public class HttpMethodCollector extends AbstractCollector<String> {
 	
 	@Override
 	protected String collectData(final MethodCall methodCall) {
-		String httpMethod = null;
-		
 		for (Annotation annotation : getHttpAnnotations(methodCall)) {
-			
-			final String method = getHttpMethod(annotation);
-			if (method != null) {
-				httpMethod = method;
-				break;
+			final Optional<String> method = getHttpMethod(annotation);
+			if (method.isPresent()) {
+				return method.get();
 			}
 		}
-		
-		return httpMethod;
+		return null;
 	}
 	
 	private Annotation[] getHttpAnnotations(final MethodCall methodCall) {
@@ -47,12 +43,12 @@ public class HttpMethodCollector extends AbstractCollector<String> {
 					};
 	}
 	
-	private String getHttpMethod(final Annotation annotation) {
+	private Optional<String> getHttpMethod(final Annotation annotation) {
 		final HttpMethod httpAnnotation = (annotation == null ? null : annotation.annotationType().getAnnotation(HttpMethod.class));
 		if (httpAnnotation == null) {
-			return null;
+			return Optional.empty();
 		}
-		return httpAnnotation.value();
+		return Optional.of(httpAnnotation.value());
 	}
 	
 	@Override

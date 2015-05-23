@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey.methodinformation;
+package de.tse.simplerestfacade.methodinformation;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
 

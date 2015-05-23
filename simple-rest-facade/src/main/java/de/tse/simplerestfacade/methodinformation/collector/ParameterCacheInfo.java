@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey.methodinformation.collector;
+package de.tse.simplerestfacade.methodinformation.collector;
 
 public class ParameterCacheInfo {
 	

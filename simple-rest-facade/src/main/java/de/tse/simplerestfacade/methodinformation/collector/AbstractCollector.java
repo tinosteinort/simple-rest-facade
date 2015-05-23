@@ -1,9 +1,9 @@
-package de.tse.simplerestfacade.jersey.methodinformation.collector;
+package de.tse.simplerestfacade.methodinformation.collector;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.jersey.methodinformation.Collector;
-import de.tse.simplerestfacade.jersey.methodinformation.cache.CacheCallback;
-import de.tse.simplerestfacade.jersey.methodinformation.cache.DataCache;
+import de.tse.simplerestfacade.methodinformation.Collector;
+import de.tse.simplerestfacade.methodinformation.cache.CacheCallback;
+import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 public abstract class AbstractCollector<T> implements Collector<T> {
 	

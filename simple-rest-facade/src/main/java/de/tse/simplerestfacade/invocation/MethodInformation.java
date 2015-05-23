@@ -9,6 +9,7 @@ public interface MethodInformation {
 	List<KeyValue> getHeaderParameter();
 	String getMediaType();
 	Object getPayload();
+	Class<?> getPayloadType();
 	Class<?> getReturnType();
 	String getHttpMethod();
 }

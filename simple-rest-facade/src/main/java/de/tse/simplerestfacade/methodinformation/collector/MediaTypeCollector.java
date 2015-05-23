@@ -1,7 +1,7 @@
-package de.tse.simplerestfacade.jersey.methodinformation.collector;
+package de.tse.simplerestfacade.methodinformation.collector;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.jersey.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.methodinformation.DefaultMethodInformation;
 
 public class MediaTypeCollector extends AbstractCollector<String> {
 

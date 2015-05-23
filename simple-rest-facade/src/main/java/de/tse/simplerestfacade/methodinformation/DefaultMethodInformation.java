@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey.methodinformation;
+package de.tse.simplerestfacade.methodinformation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ public class DefaultMethodInformation implements MethodInformation {
 	private final List<KeyValue> headerParameter = new ArrayList<>();
 	private String mediaType;
 	private Object payload;
+	private Class<?> payloadType;
 	private Class<?> returnType;
 	private String httpMethod;
 	
@@ -49,6 +50,14 @@ public class DefaultMethodInformation implements MethodInformation {
 	public void setPayload(final Object payload) {
 		this.payload = payload;
 	}
+	
+	@Override
+	public Class<?> getPayloadType() {
+        return payloadType;
+    }
+	public void setPayloadType(Class<?> payloadType) {
+        this.payloadType = payloadType;
+    }
 
 	@Override
 	public Class<?> getReturnType() {

@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.jersey.methodinformation.cache;
+package de.tse.simplerestfacade.methodinformation.cache;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
