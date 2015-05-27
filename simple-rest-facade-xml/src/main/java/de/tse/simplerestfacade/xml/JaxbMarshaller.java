@@ -9,8 +9,7 @@ import de.tse.simplerestfacade.marshalling.Marshaller;
 
 public class JaxbMarshaller implements Marshaller {
 
-    @Override
-    public String marshall(Object data) {
+    @Override public String marshall(Object data) {
         final String string;
 
         try (final StringWriter stringWriter = new StringWriter()) {
