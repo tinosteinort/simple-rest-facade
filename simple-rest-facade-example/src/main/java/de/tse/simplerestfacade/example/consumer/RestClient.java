@@ -16,8 +16,8 @@ import de.tse.simplerestfacade.RestFacadeFactory;
 import de.tse.simplerestfacade.example.consumer.api.User;
 import de.tse.simplerestfacade.example.consumer.api.UserService;
 import de.tse.simplerestfacade.example.provider.RestServer;
-import de.tse.simplerestfacade.marshalling.JaxbMarshaller;
-import de.tse.simplerestfacade.marshalling.JaxbUnmarshaller;
+import de.tse.simplerestfacade.xml.JaxbMarshaller;
+import de.tse.simplerestfacade.xml.JaxbUnmarshaller;
 
 public class RestClient {
 

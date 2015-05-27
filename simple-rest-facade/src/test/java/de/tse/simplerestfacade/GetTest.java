@@ -15,7 +15,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import de.tse.simplerestfacade.data.Person;
-import de.tse.simplerestfacade.marshalling.JaxbMarshallingConfig;
+import de.tse.simplerestfacade.xml.JaxbMarshallingConfig;
 
 public class GetTest extends JerseyTest {
 
@@ -55,7 +55,7 @@ public class GetTest extends JerseyTest {
     @Test
     public void test() {
         
-        TestGetInterface service = asService(TestGetInterface.class, MediaType.APPLICATION_XML);
+        TestGetInterface service = asService(TestGetInterface.class, MediaType.APPLICATION_JSON);
         Person person = service.getPerson();
         Assert.assertNotNull(person);
         

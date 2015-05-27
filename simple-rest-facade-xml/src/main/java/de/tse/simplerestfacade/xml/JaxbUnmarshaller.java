@@ -1,8 +1,10 @@
-package de.tse.simplerestfacade.marshalling;
+package de.tse.simplerestfacade.xml;
 
 import java.io.StringReader;
 
 import javax.xml.bind.JAXB;
+
+import de.tse.simplerestfacade.marshalling.Unmarshaller;
 
 public class JaxbUnmarshaller implements Unmarshaller {
 

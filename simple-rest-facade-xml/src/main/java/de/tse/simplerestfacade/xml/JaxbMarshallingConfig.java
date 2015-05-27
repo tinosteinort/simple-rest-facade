@@ -1,6 +1,10 @@
-package de.tse.simplerestfacade.marshalling;
+package de.tse.simplerestfacade.xml;
 
 import javax.ws.rs.core.MediaType;
+
+import de.tse.simplerestfacade.marshalling.Marshaller;
+import de.tse.simplerestfacade.marshalling.MarshallingConfig;
+import de.tse.simplerestfacade.marshalling.Unmarshaller;
 
 public class JaxbMarshallingConfig implements MarshallingConfig {
 

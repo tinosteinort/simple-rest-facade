@@ -1,9 +1,11 @@
-package de.tse.simplerestfacade.marshalling;
+package de.tse.simplerestfacade.xml;
 
 import java.io.IOException;
 import java.io.StringWriter;
 
 import javax.xml.bind.JAXB;
+
+import de.tse.simplerestfacade.marshalling.Marshaller;
 
 public class JaxbMarshaller implements Marshaller {
 
