@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.apache.http.client.HttpClient;
 
 import de.tse.simplerestfacade.invocation.RestInvocationHandler;
-import de.tse.simplerestfacade.marshalling.MarshallingConfig;
+import de.tse.simplerestfacade.marshalling.MarshallingConfigProvider;
 import de.tse.simplerestfacade.methodinformation.MethodInformationDetector;
 
 public class DefaultRestFacadeFactory implements RestFacadeFactory {
@@ -19,18 +19,17 @@ public class DefaultRestFacadeFactory implements RestFacadeFactory {
 	private final HttpClient httpClient;
 	private final String defaultMediaType;
 	private final Optional<RestInterfaceValidator> validator;
-    private final MarshallingConfig marshallingConfig;
+    private final MarshallingConfigProvider marshallingConfigProvider = new MarshallingConfigProvider();
 	
-	public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final String defaultMediaType, final boolean validateRest, final MarshallingConfig marshallingConfig) {
+	public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final String defaultMediaType, final boolean validateRest) {
 	    this.endpoint = endpoint;
 		this.httpClient = httpClient;
 		this.defaultMediaType = defaultMediaType;
 		this.validator = validateRest ? Optional.of(new DefaultRestInterfaceValidator()) : Optional.empty();
-		this.marshallingConfig = marshallingConfig;
 	}
 	
-    public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final String defaultMediaType, final MarshallingConfig marshallingConfig) {
-        this(endpoint, httpClient, defaultMediaType, DEFAULT_VALIDATE_REST, marshallingConfig);
+    public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final String defaultMediaType) {
+        this(endpoint, httpClient, defaultMediaType, DEFAULT_VALIDATE_REST);
     }
 
     @Override
@@ -43,7 +42,7 @@ public class DefaultRestFacadeFactory implements RestFacadeFactory {
 
 	    validator.ifPresent(validator -> validator.validate(facadeClass, mediaType));
 		
-		final RestServiceCaller serviceCaller = new DefaultServiceCaller(endpoint, httpClient, marshallingConfig);
+		final RestServiceCaller serviceCaller = new DefaultServiceCaller(endpoint, httpClient, marshallingConfigProvider);
 		final RestInformationDetector informationDetector = new MethodInformationDetector();
 		
 		final InvocationHandler invocationHandler = new RestInvocationHandler(serviceCaller, informationDetector, mediaType);

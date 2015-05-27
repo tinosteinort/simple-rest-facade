@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 import org.apache.http.client.HttpClient;
 
 import de.tse.simplerestfacade.invocation.MethodInformation;
-import de.tse.simplerestfacade.marshalling.MarshallingConfig;
+import de.tse.simplerestfacade.marshalling.MarshallingConfigProvider;
 import de.tse.simplerestfacade.methodexecution.MethodExecution;
 import de.tse.simplerestfacade.methodexecution.MethodExecutionFactory;
 
@@ -15,8 +15,8 @@ public class DefaultServiceCaller implements RestServiceCaller {
 
 	private final MethodExecutionFactory executionFactory;
 	
-	public DefaultServiceCaller(final URI endpoint, final HttpClient httpClient, final MarshallingConfig marshallingConfig) {
-		this.executionFactory = new MethodExecutionFactory(endpoint, httpClient, marshallingConfig);
+	public DefaultServiceCaller(final URI endpoint, final HttpClient httpClient, final MarshallingConfigProvider marshallingConfigProvider) {
+		this.executionFactory = new MethodExecutionFactory(endpoint, httpClient, marshallingConfigProvider);
 	}
 	
 	@Override public Object callRestService(final MethodInformation methodInformation) throws RestClientException {

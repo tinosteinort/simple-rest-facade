@@ -14,19 +14,19 @@ import org.apache.http.message.AbstractHttpMessage;
 import de.tse.simplerestfacade.invocation.KeyValue;
 import de.tse.simplerestfacade.invocation.MethodInformation;
 import de.tse.simplerestfacade.marshalling.Marshaller;
-import de.tse.simplerestfacade.marshalling.MarshallingConfig;
+import de.tse.simplerestfacade.marshalling.MarshallingConfigProvider;
 import de.tse.simplerestfacade.marshalling.Unmarshaller;
 
 abstract class HttpMethodExecution implements MethodExecution {
 
     private final URI endpoint;
     private final HttpClient httpClient;
-    private final MarshallingConfig marshallingConfig;
+    private final MarshallingConfigProvider marshallingConfigProvider;
 
-    protected HttpMethodExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfig marshallingConfig) {
+    protected HttpMethodExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfigProvider marshallingConfigProvider) {
         this.httpClient = httpClient;
         this.endpoint = endpoint;
-        this.marshallingConfig = marshallingConfig;
+        this.marshallingConfigProvider = marshallingConfigProvider;
     }
     
     @Override public Object execute(final MethodInformation methodInformation)
@@ -59,10 +59,10 @@ abstract class HttpMethodExecution implements MethodExecution {
         }
     }
     
-    protected Marshaller getMarshaller() {
-        return marshallingConfig.getMarshaller();
+    protected Marshaller getMarshaller(final MethodInformation methodInformation) {
+        return marshallingConfigProvider.getMarshaller(methodInformation.getMediaType());
     }
-    protected Unmarshaller getUnmarshaller() {
-        return marshallingConfig.getUnmarshaller();
+    protected Unmarshaller getUnmarshaller(final MethodInformation methodInformation) {
+        return marshallingConfigProvider.getUnmarshaller(methodInformation.getMediaType());
     }
 }

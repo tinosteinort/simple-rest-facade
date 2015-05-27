@@ -15,7 +15,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import de.tse.simplerestfacade.data.Person;
-import de.tse.simplerestfacade.xml.JaxbMarshallingConfig;
 
 public class GetTest extends JerseyTest {
 
@@ -48,7 +47,7 @@ public class GetTest extends JerseyTest {
     
     private <T> T asService(final Class<T> serviceClass, final String mediaType) {
         final HttpClient httpClient = HttpClientBuilder.create().build();
-        final RestFacadeFactory factory = new DefaultRestFacadeFactory(getBaseUri(), httpClient, mediaType, new JaxbMarshallingConfig());        
+        final RestFacadeFactory factory = new DefaultRestFacadeFactory(getBaseUri(), httpClient, mediaType);
         return factory.createFacade(serviceClass);
     }
     
