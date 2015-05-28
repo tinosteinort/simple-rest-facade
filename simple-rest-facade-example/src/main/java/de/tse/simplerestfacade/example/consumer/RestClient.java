@@ -16,8 +16,6 @@ import de.tse.simplerestfacade.RestFacadeFactory;
 import de.tse.simplerestfacade.example.consumer.api.User;
 import de.tse.simplerestfacade.example.consumer.api.UserService;
 import de.tse.simplerestfacade.example.provider.RestServer;
-import de.tse.simplerestfacade.xml.JaxbMarshaller;
-import de.tse.simplerestfacade.xml.JaxbUnmarshaller;
 
 public class RestClient {
 
@@ -27,7 +25,7 @@ public class RestClient {
 		
 	    final HttpClient httpClient = HttpClientBuilder.create().build();
 	    
-		final RestFacadeFactory factory = new DefaultRestFacadeFactory(URI.create(url), httpClient, new JaxbUnmarshaller(), new JaxbMarshaller());
+		final RestFacadeFactory factory = new DefaultRestFacadeFactory(URI.create(url), httpClient, MediaType.APPLICATION_XML);
 		this.userService = factory.createFacade(UserService.class, MediaType.APPLICATION_XML);
 	}
 	
