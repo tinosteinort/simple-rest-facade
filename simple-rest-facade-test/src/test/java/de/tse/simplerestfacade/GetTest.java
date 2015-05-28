@@ -4,19 +4,14 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Assert;
 import org.junit.Test;
 
 import de.tse.simplerestfacade.data.Person;
 
-public class GetTest extends JerseyTest {
+public class GetTest extends AbstractIntegrationTest {
 
     public static class TestGetImpl implements TestGetInterface {
 
@@ -41,20 +36,14 @@ public class GetTest extends JerseyTest {
     }
     
     @Override
-    protected Application configure() {
-        return new ResourceConfig(TestGetImpl.class);
-    }
-    
-    private <T> T asService(final Class<T> serviceClass, final String mediaType) {
-        final HttpClient httpClient = HttpClientBuilder.create().build();
-        final RestFacadeFactory factory = new DefaultRestFacadeFactory(getBaseUri(), httpClient, mediaType);
-        return factory.createFacade(serviceClass);
+    protected Class<?>[] availableServerSideServices() {
+        return new Class[] { TestGetImpl.class };
     }
     
     @Test
-    public void test() {
+    public void testGet() {
         
-        TestGetInterface service = asService(TestGetInterface.class, MediaType.APPLICATION_JSON);
+        TestGetInterface service = asRestClient(TestGetInterface.class, MediaType.APPLICATION_JSON);
         Person person = service.getPerson();
         Assert.assertNotNull(person);
         
