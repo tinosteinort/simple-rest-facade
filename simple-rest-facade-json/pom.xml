@@ -35,14 +35,23 @@
             </plugin>
         </plugins>
     </build>
-    
-    <dependencies>
 
-        <dependency>
-            <groupId>simple-rest-facade</groupId>
-            <artifactId>simple-rest-facade</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        
-    </dependencies>
+	<dependencies>
+
+		<dependency>
+			<groupId>simple-rest-facade</groupId>
+			<artifactId>simple-rest-facade</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<!-- Conflicts with dependencies for test
+			<version>2.5.3</version>
+			-->
+			<version>2.3.2</version>
+		</dependency>
+
+	</dependencies>
 </project>
