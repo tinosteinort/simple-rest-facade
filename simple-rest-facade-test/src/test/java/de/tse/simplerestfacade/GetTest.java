@@ -58,9 +58,9 @@ public class GetTest extends JerseyTest {
         Person person = service.getPerson();
         Assert.assertNotNull(person);
         
-        System.out.println(person.getId());
-        System.out.println(person.getFirstname());
-        System.out.println(person.getLastname());
-        System.out.println(person.getAge());
+        Assert.assertEquals((Integer) 123, person.getId());
+        Assert.assertEquals("Max", person.getFirstname());
+        Assert.assertEquals("Mustermann", person.getLastname());
+        Assert.assertEquals((Integer) 50, person.getAge());
     }
 }
