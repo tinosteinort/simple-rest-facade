@@ -25,13 +25,13 @@ public class GetTest extends AbstractIntegrationTest {
         }
     }
     
-    @Path("testgetinterface")
-    @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+    @Path("gettest")
+    @Consumes(MediaType.APPLICATION_XML)
     public static interface TestGetInterface {
 
         @GET
-        @Path("/getperson")
-        @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
+        @Path("/get")
+        @Produces(MediaType.APPLICATION_XML)
         Person getPerson();
     }
     
@@ -43,7 +43,7 @@ public class GetTest extends AbstractIntegrationTest {
     @Test
     public void testGet() {
         
-        TestGetInterface service = asRestClient(TestGetInterface.class, MediaType.APPLICATION_JSON);
+        TestGetInterface service = asRestClient(TestGetInterface.class, MediaType.APPLICATION_XML);
         Person person = service.getPerson();
         Assert.assertNotNull(person);
         
