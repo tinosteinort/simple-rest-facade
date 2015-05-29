@@ -22,7 +22,7 @@ class GetExecution extends HttpMethodExecution {
             throws URISyntaxException, ClientProtocolException, IOException {
         
         final HttpGet get = new HttpGet(targetUriFrom(methodInformation));
-        addHeader(get, methodInformation);
+        setHeaders(get, methodInformation);
         
         return httpClient.execute(get, new ResultConverterResponseHandler(getUnmarshaller(methodInformation), methodInformation.getReturnType()));
     }

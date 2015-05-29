@@ -22,7 +22,7 @@ class DeleteExecution extends HttpMethodExecution {
             throws URISyntaxException, ClientProtocolException, IOException {
         
         final HttpDelete delete = new HttpDelete(targetUriFrom(methodInformation));
-        addHeader(delete, methodInformation);
+        setHeaders(delete, methodInformation);
         
         return httpClient.execute(delete, new ResultConverterResponseHandler(getUnmarshaller(methodInformation), methodInformation.getReturnType()));
     }

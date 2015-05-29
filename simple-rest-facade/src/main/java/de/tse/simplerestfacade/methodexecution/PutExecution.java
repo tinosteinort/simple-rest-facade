@@ -22,7 +22,7 @@ class PutExecution extends HttpMethodExecution {
             throws URISyntaxException, ClientProtocolException, IOException {
         
         final HttpPut put = new HttpPut(targetUriFrom(methodInformation));
-        addHeader(put, methodInformation);
+        setHeaders(put, methodInformation);
         
         return httpClient.execute(put, new ResultConverterResponseHandler(getUnmarshaller(methodInformation), methodInformation.getReturnType()));
     }

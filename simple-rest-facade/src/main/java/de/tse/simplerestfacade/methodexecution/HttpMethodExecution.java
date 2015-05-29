@@ -50,9 +50,10 @@ abstract class HttpMethodExecution implements MethodExecution {
         return builder.build();
     }
     
-    protected void addHeader(final AbstractHttpMessage message, final MethodInformation methodInformation) {
+    protected void setHeaders(final AbstractHttpMessage message, final MethodInformation methodInformation) {
         
         message.addHeader(HttpHeaders.ACCEPT, methodInformation.getMediaType());
+        message.addHeader(HttpHeaders.CONTENT_TYPE, methodInformation.getMediaType());
         
         for (KeyValue pair : methodInformation.getHeaderParameter()) {
             message.addHeader(pair.getKey(), (String) pair.getValue());

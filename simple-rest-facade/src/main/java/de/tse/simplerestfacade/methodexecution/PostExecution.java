@@ -23,7 +23,7 @@ class PostExecution extends HttpMethodExecution {
             throws URISyntaxException, ClientProtocolException, IOException {
         
         final HttpPost post = new HttpPost(targetUriFrom(methodInformation));
-        addHeader(post, methodInformation);
+        setHeaders(post, methodInformation);
         
         post.setEntity(new StringEntity(getMarshaller(methodInformation).marshall(methodInformation.getPayload())));
         
