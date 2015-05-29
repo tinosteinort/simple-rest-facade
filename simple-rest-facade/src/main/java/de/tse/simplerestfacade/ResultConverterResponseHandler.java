@@ -34,7 +34,7 @@ public class ResultConverterResponseHandler<T> implements ResponseHandler<Object
     private void validateStatusCode(final HttpResponse response) {
         final StatusLine statusLine = response.getStatusLine();
         if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
-            throw new RuntimeException(statusLine.toString());
+            throw new RestClientException(statusLine.toString());
         }
     }
 }

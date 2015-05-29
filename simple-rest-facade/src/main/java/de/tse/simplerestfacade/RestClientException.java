@@ -21,9 +21,14 @@ public class RestClientException extends RuntimeException {
 	public RestClientException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
-	
+
+    public RestClientException(final String message, final int httpResponseCode) {
+        super(message);
+        this.httpResponseCode = httpResponseCode;
+    }
+
 	public RestClientException(final int httpResponseCode) {
-		this.httpResponseCode = httpResponseCode;
+	    this(null, httpResponseCode);
 	}
 	
 	public RestClientException(final int httpResponseCode, final Throwable cause) {
