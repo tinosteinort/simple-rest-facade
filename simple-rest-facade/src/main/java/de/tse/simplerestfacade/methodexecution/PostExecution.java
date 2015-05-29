@@ -25,7 +25,6 @@ class PostExecution extends HttpMethodExecution {
         final HttpPost post = new HttpPost(targetUriFrom(methodInformation));
         addHeader(post, methodInformation);
         
-        // TODO je nach Header.ACCEPT (json/xml) den richtigen marshaller wählen
         post.setEntity(new StringEntity(getMarshaller(methodInformation).marshall(methodInformation.getPayload())));
         
         return httpClient.execute(post, new ResultConverterResponseHandler(getUnmarshaller(methodInformation), methodInformation.getReturnType()));
