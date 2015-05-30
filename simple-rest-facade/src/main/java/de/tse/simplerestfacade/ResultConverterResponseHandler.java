@@ -26,15 +26,25 @@ public class ResultConverterResponseHandler<T> implements ResponseHandler<Object
 
         validateStatusCode(response);
         
-        final String content = EntityUtils.toString(response.getEntity());
+        Object result = null;
+        
+        if (response.getEntity() != null) {
 
-        return unmarshaller.unmarshall(content, returnType);
+            final String content = EntityUtils.toString(response.getEntity());
+            result = unmarshaller.unmarshall(content, returnType);
+        }
+        
+        return result;
     }
 
     private void validateStatusCode(final HttpResponse response) {
         final StatusLine statusLine = response.getStatusLine();
-        if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
+        if (!requestWasSuccessful(statusLine.getStatusCode())) {
             throw new RestClientException(statusLine.toString());
         }
+    }
+    
+    private boolean requestWasSuccessful(final int statusCode) {
+        return statusCode >= HttpStatus.SC_OK || statusCode < HttpStatus.SC_MULTIPLE_CHOICES;
     }
 }
