@@ -3,19 +3,18 @@ package de.tse.simplerestfacade;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.tse.simplerestfacade.data.Person;
-
 public class DeleteTest extends AbstractIntegrationTest {
 
     public static class TestDeleteImpl implements TestDeleteInterface {
 
-        @Override public void deletePerson(final Person person) {
+        @Override public void deletePerson(final String userId) {
             
         }
     }
@@ -25,9 +24,9 @@ public class DeleteTest extends AbstractIntegrationTest {
     public static interface TestDeleteInterface {
 
         @DELETE
-        @Path("/delete")
+        @Path("/delete/{id}")
         @Produces(MediaType.APPLICATION_XML)
-        void deletePerson(Person person);
+        void deletePerson(@PathParam("id") String userId);
     }
     
     @Override
@@ -40,8 +39,7 @@ public class DeleteTest extends AbstractIntegrationTest {
         
         TestDeleteInterface service = asRestClient(TestDeleteInterface.class, MediaType.APPLICATION_XML);
         
-        Person person = new Person();
-        service.deletePerson(person);
+        service.deletePerson("1");
         Assert.assertTrue(true);
     }
 }
