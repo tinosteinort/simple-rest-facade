@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.StringEntity;
 
 import de.tse.simplerestfacade.ResultConverterResponseHandler;
 import de.tse.simplerestfacade.invocation.MethodInformation;
@@ -23,6 +24,10 @@ class PutExecution extends HttpMethodExecution {
         
         final HttpPut put = new HttpPut(targetUriFrom(methodInformation));
         setHeaders(put, methodInformation);
+        
+        if (methodInformation.getPayload() != null) {
+            put.setEntity(new StringEntity(getMarshaller(methodInformation).marshall(methodInformation.getPayload())));
+        }
         
         return httpClient.execute(put, new ResultConverterResponseHandler(getUnmarshaller(methodInformation), methodInformation.getReturnType()));
     }

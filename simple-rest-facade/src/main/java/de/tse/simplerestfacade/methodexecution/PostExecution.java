@@ -25,7 +25,9 @@ class PostExecution extends HttpMethodExecution {
         final HttpPost post = new HttpPost(targetUriFrom(methodInformation));
         setHeaders(post, methodInformation);
         
-        post.setEntity(new StringEntity(getMarshaller(methodInformation).marshall(methodInformation.getPayload())));
+        if (methodInformation.getPayload() != null) {
+            post.setEntity(new StringEntity(getMarshaller(methodInformation).marshall(methodInformation.getPayload())));
+        }
         
         return httpClient.execute(post, new ResultConverterResponseHandler(getUnmarshaller(methodInformation), methodInformation.getReturnType()));
     }
