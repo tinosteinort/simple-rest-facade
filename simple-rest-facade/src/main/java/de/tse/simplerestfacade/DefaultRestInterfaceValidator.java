@@ -10,5 +10,18 @@ public class DefaultRestInterfaceValidator implements RestInterfaceValidator {
 		
 		// Alle Methoden muessen mindestens einen gleichen mediaType haben damit sie
 		//  unterstuetzt werden koennen
+	    
+	    /*
+	     * PUT:
+	     *     * Payload required? Put possible only with QueryParams?
+	     *     
+	     * POST:
+	     *     * Payload required? Post possible only with QueryParams?
+	     * 
+	     * DELETE:
+	     *     * no Payload allowed
+	     *     
+	     * GET:
+	     */
 	}
 }
