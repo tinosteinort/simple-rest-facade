@@ -45,6 +45,6 @@ public class ResultConverterResponseHandler<T> implements ResponseHandler<Object
     }
     
     private boolean requestWasSuccessful(final int statusCode) {
-        return statusCode >= HttpStatus.SC_OK || statusCode < HttpStatus.SC_MULTIPLE_CHOICES;
+        return statusCode >= HttpStatus.SC_OK && statusCode < HttpStatus.SC_MULTIPLE_CHOICES;
     }
 }
