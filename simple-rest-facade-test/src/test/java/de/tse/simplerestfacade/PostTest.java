@@ -13,9 +13,9 @@ import de.tse.simplerestfacade.data.Person;
 
 public class PostTest extends AbstractIntegrationTest {
 
-    public static class TestPostImpl implements TestPostInterface {
+    public static class TestPostWithDataImpl implements TestPostWithDataInterface {
 
-        @Override public Person createPerson(final Person newPerson) {
+        @Override public Person createPersonWithData(final Person newPerson) {
             newPerson.setId(1);
             newPerson.setFirstname("NEW_" + newPerson.getFirstname());
             newPerson.setLastname("NEW_" + newPerson.getLastname());
@@ -26,23 +26,38 @@ public class PostTest extends AbstractIntegrationTest {
     
     @Path("createtest")
     @Consumes(MediaType.APPLICATION_JSON)
-    public static interface TestPostInterface {
+    public static interface TestPostWithDataInterface {
 
         @POST
-        @Path("/create")
+        @Path("/createwithdata")
         @Produces(MediaType.APPLICATION_JSON)
-        Person createPerson(Person person);
+        Person createPersonWithData(Person person);
     }
     
-    @Override
-    protected Class<?>[] availableServerSideServices() {
-        return new Class[] { TestPostImpl.class };
+    public static class TestPostWithNullImpl implements TestPostWithNullInterface {
+
+        @Override public Person createPersonWithNull(Person person) {
+            return null;
+        }
+    }
+
+    @Path("createwithnull")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public static interface TestPostWithNullInterface {
+
+        @POST
+        @Path("/createwithnull")
+        @Produces(MediaType.APPLICATION_JSON)
+        Person createPersonWithNull(Person person);
     }
     
-    @Test
-    public void testPost() {
+    @Override protected Class<?>[] availableServerSideServices() {
+        return new Class[] { TestPostWithDataImpl.class, TestPostWithNullImpl.class };
+    }
+    
+    @Test public void testPost() {
         
-        TestPostInterface service = asRestClient(TestPostInterface.class, MediaType.APPLICATION_JSON);
+        TestPostWithDataInterface service = asRestClient(TestPostWithDataInterface.class, MediaType.APPLICATION_JSON);
         
         Person newPerson = new Person();
         newPerson.setId(-1);
@@ -50,12 +65,19 @@ public class PostTest extends AbstractIntegrationTest {
         newPerson.setLastname("Last");
         newPerson.setAge(100);
         
-        Person createdPerson = service.createPerson(newPerson);
+        Person createdPerson = service.createPersonWithData(newPerson);
         Assert.assertNotNull(createdPerson);
         
         Assert.assertEquals((Integer) 1, createdPerson.getId());
         Assert.assertEquals("NEW_First", createdPerson.getFirstname());
         Assert.assertEquals("NEW_Last", createdPerson.getLastname());
         Assert.assertEquals((Integer) 99, createdPerson.getAge());
+    }
+    
+    @Test public void testPostNull() {
+
+        TestPostWithNullInterface service = asRestClient(TestPostWithNullInterface.class, MediaType.APPLICATION_JSON);
+        Person createdPerson = service.createPersonWithNull(null);
+        Assert.assertNull(createdPerson);
     }
 }

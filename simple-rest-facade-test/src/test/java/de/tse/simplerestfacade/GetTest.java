@@ -13,9 +13,9 @@ import de.tse.simplerestfacade.data.Person;
 
 public class GetTest extends AbstractIntegrationTest {
 
-    public static class TestGetImpl implements TestGetInterface {
+    public static class TestGetWithResultImpl implements TestGetWithResultInterface {
 
-        @Override public Person getPerson() {
+        @Override public Person getPersonWithResult() {
             final Person person = new Person();
             person.setId(123);
             person.setFirstname("Max");
@@ -27,29 +27,51 @@ public class GetTest extends AbstractIntegrationTest {
     
     @Path("gettest")
     @Consumes(MediaType.APPLICATION_XML)
-    public static interface TestGetInterface {
+    public static interface TestGetWithResultInterface {
 
         @GET
-        @Path("/get")
+        @Path("/getwithresult")
         @Produces(MediaType.APPLICATION_XML)
-        Person getPerson();
+        Person getPersonWithResult();
+    }
+
+    public static class TestGetNullImpl implements TestGetNullInterface {
+
+        @Override public Person getPersonNullResult() {
+            return null;
+        }
     }
     
-    @Override
-    protected Class<?>[] availableServerSideServices() {
-        return new Class[] { TestGetImpl.class };
+    @Path("gettestnull")
+    @Consumes(MediaType.APPLICATION_XML)
+    public static interface TestGetNullInterface {
+
+        @GET
+        @Path("/getnull")
+        @Produces(MediaType.APPLICATION_XML)
+        Person getPersonNullResult();
     }
     
-    @Test
-    public void testGet() {
+    @Override protected Class<?>[] availableServerSideServices() {
+        return new Class[] { TestGetWithResultImpl.class, TestGetNullImpl.class };
+    }
+    
+    @Test public void testGet() {
         
-        TestGetInterface service = asRestClient(TestGetInterface.class, MediaType.APPLICATION_XML);
-        Person person = service.getPerson();
+        TestGetWithResultInterface service = asRestClient(TestGetWithResultInterface.class, MediaType.APPLICATION_XML);
+        Person person = service.getPersonWithResult();
         Assert.assertNotNull(person);
         
         Assert.assertEquals((Integer) 123, person.getId());
         Assert.assertEquals("Max", person.getFirstname());
         Assert.assertEquals("Mustermann", person.getLastname());
         Assert.assertEquals((Integer) 50, person.getAge());
+    }
+    
+    @Test public void testGetNull() {
+
+        TestGetNullInterface service = asRestClient(TestGetNullInterface.class, MediaType.APPLICATION_XML);
+        Person person = service.getPersonNullResult();
+        Assert.assertNull(person);
     }
 }

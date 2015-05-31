@@ -13,9 +13,9 @@ import de.tse.simplerestfacade.data.Person;
 
 public class PutTest extends AbstractIntegrationTest {
 
-    public static class TestPustImpl implements TestPutInterface {
+    public static class TestPutWithDataImpl implements TestPutWithDataInterface {
 
-        @Override public Person updatePerson(final Person person) {
+        @Override public Person updatePersonWithData(final Person person) {
             person.setId(person.getId() + 1);
             person.setFirstname("UPDATED_" + person.getFirstname());
             person.setLastname("UPDATED_" + person.getLastname());
@@ -26,23 +26,38 @@ public class PutTest extends AbstractIntegrationTest {
     
     @Path("updatetest")
     @Consumes(MediaType.APPLICATION_XML)
-    public static interface TestPutInterface {
+    public static interface TestPutWithDataInterface {
+
+        @PUT
+        @Path("/updatewithdata")
+        @Produces(MediaType.APPLICATION_XML)
+        Person updatePersonWithData(Person person);
+    }
+
+    public static class TestPutWithNullImpl implements TestPutWithNullInterface {
+
+        @Override public Person updatePersonWithNull(final Person person) {
+            return null;
+        }
+    }
+    
+    @Path("updatewithnull")
+    @Consumes(MediaType.APPLICATION_XML)
+    public static interface TestPutWithNullInterface {
 
         @PUT
         @Path("/update")
         @Produces(MediaType.APPLICATION_XML)
-        Person updatePerson(Person person);
+        Person updatePersonWithNull(Person person);
     }
     
-    @Override
-    protected Class<?>[] availableServerSideServices() {
-        return new Class[] { TestPustImpl.class };
+    @Override protected Class<?>[] availableServerSideServices() {
+        return new Class[] { TestPutWithDataImpl.class, TestPutWithNullImpl.class };
     }
     
-    @Test
-    public void testPut() {
+    @Test public void testPut() {
         
-        TestPutInterface service = asRestClient(TestPutInterface.class, MediaType.APPLICATION_XML);
+        TestPutWithDataInterface service = asRestClient(TestPutWithDataInterface.class, MediaType.APPLICATION_XML);
         
         Person person = new Person();
         person.setId(1);
@@ -50,12 +65,20 @@ public class PutTest extends AbstractIntegrationTest {
         person.setLastname("Last");
         person.setAge(100);
         
-        Person updatedPerson = service.updatePerson(person);
+        Person updatedPerson = service.updatePersonWithData(person);
         Assert.assertNotNull(updatedPerson);
         
         Assert.assertEquals((Integer) 2, updatedPerson.getId());
         Assert.assertEquals("UPDATED_First", updatedPerson.getFirstname());
         Assert.assertEquals("UPDATED_Last", updatedPerson.getLastname());
         Assert.assertEquals((Integer) 101, updatedPerson.getAge());
+    }
+
+    @Test public void testPutNull() {
+        
+        TestPutWithNullInterface service = asRestClient(TestPutWithNullInterface.class, MediaType.APPLICATION_XML);
+        
+        Person updatedPerson = service.updatePersonWithNull(null);
+        Assert.assertNull(updatedPerson);
     }
 }

@@ -12,34 +12,57 @@ import org.junit.Test;
 
 public class DeleteTest extends AbstractIntegrationTest {
 
-    public static class TestDeleteImpl implements TestDeleteInterface {
+    public static class TestDeleteWithPathParamImpl implements TestDeleteWithPathParamInterface {
 
-        @Override public void deletePerson(final String userId) {
+        @Override public void deletePersonWithPathParams(final String userId) {
             
         }
     }
     
     @Path("deletetest")
     @Consumes(MediaType.APPLICATION_XML)
-    public static interface TestDeleteInterface {
+    public static interface TestDeleteWithPathParamInterface {
 
         @DELETE
-        @Path("/delete/{id}")
+        @Path("/deletewithpathparam/{id}")
         @Produces(MediaType.APPLICATION_XML)
-        void deletePerson(@PathParam("id") String userId);
+        void deletePersonWithPathParams(@PathParam("id") String userId);
+    }
+
+    public static class TestDeleteWithoutParamsImpl implements TestDeleteWithoutParamsInterface {
+
+        @Override public void deletePersonWithoutParams() {
+            
+        }
     }
     
-    @Override
-    protected Class<?>[] availableServerSideServices() {
-        return new Class[] { TestDeleteImpl.class };
+    @Path("deletetest")
+    @Consumes(MediaType.APPLICATION_XML)
+    public static interface TestDeleteWithoutParamsInterface {
+
+        @DELETE
+        @Path("/deletewithoutparams")
+        @Produces(MediaType.APPLICATION_XML)
+        void deletePersonWithoutParams();
     }
     
-    @Test
-    public void testDelete() {
+    @Override protected Class<?>[] availableServerSideServices() {
+        return new Class[] { TestDeleteWithPathParamImpl.class, TestDeleteWithoutParamsImpl.class };
+    }
+    
+    @Test public void testDeleteWithPathParams() {
         
-        TestDeleteInterface service = asRestClient(TestDeleteInterface.class, MediaType.APPLICATION_XML);
+        TestDeleteWithPathParamInterface service = asRestClient(TestDeleteWithPathParamInterface.class, MediaType.APPLICATION_XML);
         
-        service.deletePerson("1");
+        service.deletePersonWithPathParams("1");
+        Assert.assertTrue(true);
+    }
+    
+    @Test public void testDeleteWithoutParams() {
+        
+        TestDeleteWithoutParamsInterface service = asRestClient(TestDeleteWithoutParamsInterface.class, MediaType.APPLICATION_XML);
+        
+        service.deletePersonWithoutParams();
         Assert.assertTrue(true);
     }
 }
