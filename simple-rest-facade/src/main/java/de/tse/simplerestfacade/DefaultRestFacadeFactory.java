@@ -9,6 +9,7 @@ import org.apache.http.client.HttpClient;
 
 import de.tse.simplerestfacade.invocation.RestInvocationHandler;
 import de.tse.simplerestfacade.marshalling.MarshallingConfigProvider;
+import de.tse.simplerestfacade.methodexecution.MethodExecutionFactory;
 import de.tse.simplerestfacade.methodinformation.MethodInformationDetector;
 
 public class DefaultRestFacadeFactory implements RestFacadeFactory {
@@ -42,7 +43,8 @@ public class DefaultRestFacadeFactory implements RestFacadeFactory {
 
 	    validator.ifPresent(validator -> validator.validate(facadeClass, mediaType));
 		
-		final RestServiceCaller serviceCaller = new DefaultServiceCaller(endpoint, httpClient, marshallingConfigProvider);
+	    final MethodExecutionFactory executionFactory = new MethodExecutionFactory(endpoint, httpClient, marshallingConfigProvider);
+		final RestServiceCaller serviceCaller = new DefaultServiceCaller(executionFactory);
 		final RestInformationDetector informationDetector = new MethodInformationDetector();
 		
 		final InvocationHandler invocationHandler = new RestInvocationHandler(serviceCaller, informationDetector, mediaType);
