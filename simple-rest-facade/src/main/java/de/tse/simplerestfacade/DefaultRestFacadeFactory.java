@@ -45,7 +45,8 @@ public class DefaultRestFacadeFactory implements RestFacadeFactory {
 
 	    validator.ifPresent(validator -> validator.validate(facadeClass, mediaType));
 		
-	    final MethodExecutionFactory executionFactory = new MethodExecutionFactory(endpoint, httpClient, marshallingConfigProvider, exceptionHandler);
+	    final ExecutionContext executionContext = new ExecutionContext(endpoint, httpClient, marshallingConfigProvider, exceptionHandler);
+	    final MethodExecutionFactory executionFactory = new MethodExecutionFactory(executionContext);
 		final RestServiceCaller serviceCaller = new DefaultServiceCaller(executionFactory);
 		final RestInformationDetector informationDetector = new MethodInformationDetector();
 		

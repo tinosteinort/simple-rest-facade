@@ -12,30 +12,24 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.message.AbstractHttpMessage;
 
 import de.tse.simplerestfacade.ExceptionHandler;
+import de.tse.simplerestfacade.ExecutionContext;
 import de.tse.simplerestfacade.invocation.KeyValue;
 import de.tse.simplerestfacade.invocation.MethodInformation;
 import de.tse.simplerestfacade.marshalling.Marshaller;
-import de.tse.simplerestfacade.marshalling.MarshallingConfigProvider;
 import de.tse.simplerestfacade.marshalling.Unmarshaller;
 
 abstract class HttpMethodExecution implements MethodExecution {
 
-    private final URI endpoint;
-    private final HttpClient httpClient;
-    private final MarshallingConfigProvider marshallingConfigProvider;
-    private final ExceptionHandler exceptionHandler;
+    private final ExecutionContext executionContext;
 
-    protected HttpMethodExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfigProvider marshallingConfigProvider, final ExceptionHandler exceptionHandler) {
-        this.httpClient = httpClient;
-        this.endpoint = endpoint;
-        this.marshallingConfigProvider = marshallingConfigProvider;
-        this.exceptionHandler = exceptionHandler;
+    protected HttpMethodExecution(final ExecutionContext executionContext) {
+        this.executionContext = executionContext;
     }
     
     @Override public Object execute(final MethodInformation methodInformation)
             throws URISyntaxException, ClientProtocolException, IOException {
         
-        return execute(httpClient, methodInformation, exceptionHandler);
+        return execute(executionContext.getHttpClient(), methodInformation, executionContext.getExceptionHandler());
     }
     
     abstract Object execute(HttpClient httpClient, MethodInformation methodInformation, ExceptionHandler exceptionHandler)
@@ -43,7 +37,7 @@ abstract class HttpMethodExecution implements MethodExecution {
     
     protected URI targetUriFrom(final MethodInformation methodInformation) throws URISyntaxException {
         
-        final UriBuilder builder = UriBuilder.fromUri(endpoint);
+        final UriBuilder builder = UriBuilder.fromUri(executionContext.getEndpoint());
         builder.path(methodInformation.getMethodUrl()); // builder.buildFromMap(values)
         
         for (KeyValue pair : methodInformation.getQueryParameter()) {
@@ -67,9 +61,9 @@ abstract class HttpMethodExecution implements MethodExecution {
     }
     
     protected Marshaller getMarshaller(final MethodInformation methodInformation) {
-        return marshallingConfigProvider.getMarshaller(methodInformation.getMediaType());
+        return executionContext.getMarshallingConfigProvider().getMarshaller(methodInformation.getMediaType());
     }
     protected Unmarshaller getUnmarshaller(final MethodInformation methodInformation) {
-        return marshallingConfigProvider.getUnmarshaller(methodInformation.getMediaType());
+        return executionContext.getMarshallingConfigProvider().getUnmarshaller(methodInformation.getMediaType());
     }
 }

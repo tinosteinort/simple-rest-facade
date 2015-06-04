@@ -1,7 +1,6 @@
 package de.tse.simplerestfacade.methodexecution;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.apache.http.client.ClientProtocolException;
@@ -10,14 +9,14 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 
 import de.tse.simplerestfacade.ExceptionHandler;
+import de.tse.simplerestfacade.ExecutionContext;
 import de.tse.simplerestfacade.ResultConverterResponseHandler;
 import de.tse.simplerestfacade.invocation.MethodInformation;
-import de.tse.simplerestfacade.marshalling.MarshallingConfigProvider;
 
 class PutExecution extends HttpMethodExecution {
     
-    protected PutExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfigProvider marshallingConfigProvider, final ExceptionHandler exceptionHandler) {
-        super(endpoint, httpClient, marshallingConfigProvider, exceptionHandler);
+    protected PutExecution(final ExecutionContext executionContext) {
+        super(executionContext);
     }
 
     @Override public Object execute(final HttpClient httpClient, final MethodInformation methodInformation, final ExceptionHandler exceptionHandler)
