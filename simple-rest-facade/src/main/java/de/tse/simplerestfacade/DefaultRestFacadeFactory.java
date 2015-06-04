@@ -20,30 +20,32 @@ public class DefaultRestFacadeFactory implements RestFacadeFactory {
 	private final HttpClient httpClient;
 	private final String defaultMediaType;
 	private final Optional<RestInterfaceValidator> validator;
+	private final ExceptionHandler defaultExceptionHandler;
     private final MarshallingConfigProvider marshallingConfigProvider = new MarshallingConfigProvider();
 	
-	public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final String defaultMediaType, final boolean validateRest) {
+	public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final String defaultMediaType, final boolean validateRest, final ExceptionHandler exceptionHandler) {
 	    this.endpoint = endpoint;
 		this.httpClient = httpClient;
 		this.defaultMediaType = defaultMediaType;
 		this.validator = validateRest ? Optional.of(new DefaultRestInterfaceValidator()) : Optional.empty();
+		this.defaultExceptionHandler = exceptionHandler;
 	}
 	
     public DefaultRestFacadeFactory(final URI endpoint, final HttpClient httpClient, final String defaultMediaType) {
-        this(endpoint, httpClient, defaultMediaType, DEFAULT_VALIDATE_REST);
+        this(endpoint, httpClient, defaultMediaType, DEFAULT_VALIDATE_REST, new DefaultRestExceptionHandler());
     }
 
     @Override
     public <T> T createFacade(final Class<T> facadeClass) {
-        return createFacade(facadeClass, defaultMediaType);
+        return createFacade(facadeClass, defaultMediaType, defaultExceptionHandler);
     }
     
     @Override
-    public <T> T createFacade(final Class<T> facadeClass, final String mediaType) {
+    public <T> T createFacade(final Class<T> facadeClass, final String mediaType, final ExceptionHandler exceptionHandler) {
 
 	    validator.ifPresent(validator -> validator.validate(facadeClass, mediaType));
 		
-	    final MethodExecutionFactory executionFactory = new MethodExecutionFactory(endpoint, httpClient, marshallingConfigProvider);
+	    final MethodExecutionFactory executionFactory = new MethodExecutionFactory(endpoint, httpClient, marshallingConfigProvider, exceptionHandler);
 		final RestServiceCaller serviceCaller = new DefaultServiceCaller(executionFactory);
 		final RestInformationDetector informationDetector = new MethodInformationDetector();
 		

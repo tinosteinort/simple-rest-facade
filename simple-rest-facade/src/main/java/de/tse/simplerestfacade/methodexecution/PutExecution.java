@@ -9,17 +9,18 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 
+import de.tse.simplerestfacade.ExceptionHandler;
 import de.tse.simplerestfacade.ResultConverterResponseHandler;
 import de.tse.simplerestfacade.invocation.MethodInformation;
 import de.tse.simplerestfacade.marshalling.MarshallingConfigProvider;
 
 class PutExecution extends HttpMethodExecution {
     
-    protected PutExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfigProvider marshallingConfigProvider) {
-        super(endpoint, httpClient, marshallingConfigProvider);
+    protected PutExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfigProvider marshallingConfigProvider, final ExceptionHandler exceptionHandler) {
+        super(endpoint, httpClient, marshallingConfigProvider, exceptionHandler);
     }
 
-    @Override public Object execute(final HttpClient httpClient, final MethodInformation methodInformation)
+    @Override public Object execute(final HttpClient httpClient, final MethodInformation methodInformation, final ExceptionHandler exceptionHandler)
             throws URISyntaxException, ClientProtocolException, IOException {
         
         final HttpPut put = new HttpPut(targetUriFrom(methodInformation));
@@ -29,6 +30,6 @@ class PutExecution extends HttpMethodExecution {
             put.setEntity(new StringEntity(getMarshaller(methodInformation).marshall(methodInformation.getPayload())));
         }
         
-        return httpClient.execute(put, new ResultConverterResponseHandler(getUnmarshaller(methodInformation), methodInformation.getReturnType()));
+        return httpClient.execute(put, new ResultConverterResponseHandler(getUnmarshaller(methodInformation), methodInformation.getReturnType(), exceptionHandler));
     }
 }

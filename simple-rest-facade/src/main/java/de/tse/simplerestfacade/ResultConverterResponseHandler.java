@@ -15,10 +15,12 @@ public class ResultConverterResponseHandler<T> implements ResponseHandler<Object
     
     private final Unmarshaller unmarshaller;
     private final Class<T> returnType;
+    private final ExceptionHandler exceptionHandler;
     
-    public ResultConverterResponseHandler(final Unmarshaller unmarshaller, final Class<T> returnType) {
+    public ResultConverterResponseHandler(final Unmarshaller unmarshaller, final Class<T> returnType, final ExceptionHandler exceptionHandler) {
         this.unmarshaller = unmarshaller;
         this.returnType = returnType;
+        this.exceptionHandler = exceptionHandler;
     }
     
     @Override
@@ -38,9 +40,8 @@ public class ResultConverterResponseHandler<T> implements ResponseHandler<Object
     }
 
     private void validateStatusCode(final HttpResponse response) {
-        final StatusLine statusLine = response.getStatusLine();
-        if (!requestWasSuccessful(statusLine.getStatusCode())) {
-            throw new RestClientException(statusLine.toString());
+        if (!requestWasSuccessful(response.getStatusLine().getStatusCode())) {
+            exceptionHandler.handleFaultyResponse(response, unmarshaller);
         }
     }
     

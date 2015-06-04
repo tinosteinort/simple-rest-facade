@@ -11,6 +11,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.message.AbstractHttpMessage;
 
+import de.tse.simplerestfacade.ExceptionHandler;
 import de.tse.simplerestfacade.invocation.KeyValue;
 import de.tse.simplerestfacade.invocation.MethodInformation;
 import de.tse.simplerestfacade.marshalling.Marshaller;
@@ -22,20 +23,22 @@ abstract class HttpMethodExecution implements MethodExecution {
     private final URI endpoint;
     private final HttpClient httpClient;
     private final MarshallingConfigProvider marshallingConfigProvider;
+    private final ExceptionHandler exceptionHandler;
 
-    protected HttpMethodExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfigProvider marshallingConfigProvider) {
+    protected HttpMethodExecution(final URI endpoint, final HttpClient httpClient, final MarshallingConfigProvider marshallingConfigProvider, final ExceptionHandler exceptionHandler) {
         this.httpClient = httpClient;
         this.endpoint = endpoint;
         this.marshallingConfigProvider = marshallingConfigProvider;
+        this.exceptionHandler = exceptionHandler;
     }
     
     @Override public Object execute(final MethodInformation methodInformation)
             throws URISyntaxException, ClientProtocolException, IOException {
         
-        return execute(httpClient, methodInformation);
+        return execute(httpClient, methodInformation, exceptionHandler);
     }
     
-    abstract Object execute(HttpClient httpClient, MethodInformation methodInformation)
+    abstract Object execute(HttpClient httpClient, MethodInformation methodInformation, ExceptionHandler exceptionHandler)
             throws URISyntaxException, ClientProtocolException, IOException;
     
     protected URI targetUriFrom(final MethodInformation methodInformation) throws URISyntaxException {

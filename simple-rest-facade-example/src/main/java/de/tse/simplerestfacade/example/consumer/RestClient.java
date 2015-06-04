@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
+import de.tse.simplerestfacade.DefaultRestExceptionHandler;
 import de.tse.simplerestfacade.DefaultRestFacadeFactory;
 import de.tse.simplerestfacade.RestClientException;
 import de.tse.simplerestfacade.RestFacadeFactory;
@@ -26,7 +27,7 @@ public class RestClient {
 	    final HttpClient httpClient = HttpClientBuilder.create().build();
 	    
 		final RestFacadeFactory factory = new DefaultRestFacadeFactory(URI.create(url), httpClient, MediaType.APPLICATION_XML);
-		this.userService = factory.createFacade(UserService.class, MediaType.APPLICATION_XML);
+		this.userService = factory.createFacade(UserService.class, MediaType.APPLICATION_XML, new DefaultRestExceptionHandler());
 	}
 	
 	public void createUsers() {
