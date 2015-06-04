@@ -25,7 +25,7 @@ class PutExecution extends HttpMethodExecution {
         final HttpPut put = new HttpPut(targetUriFrom(methodInformation));
         setHeaders(put, methodInformation);
         
-        if (methodInformation.getPayload() != null) {
+        if (methodInformation.hasPayload()) {
             put.setEntity(new StringEntity(getMarshaller(methodInformation).marshall(methodInformation.getPayload())));
         }
         

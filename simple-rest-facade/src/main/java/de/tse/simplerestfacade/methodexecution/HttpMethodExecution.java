@@ -54,7 +54,7 @@ abstract class HttpMethodExecution implements MethodExecution {
         
         message.addHeader(HttpHeaders.ACCEPT, methodInformation.getMediaType());
         
-        if (methodInformation.getPayload() != null) {
+        if (methodInformation.hasPayload()) {
             message.addHeader(HttpHeaders.CONTENT_TYPE, methodInformation.getMediaType());
         }
         

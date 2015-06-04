@@ -41,12 +41,12 @@ public class PutTest extends AbstractIntegrationTest {
         }
     }
     
-    @Path("updatewithnull")
+    @Path("updatetest")
     @Consumes(MediaType.APPLICATION_XML)
     public static interface TestPutWithNullInterface {
 
         @PUT
-        @Path("/update")
+        @Path("/updatewithnull")
         @Produces(MediaType.APPLICATION_XML)
         Person updatePersonWithNull(Person person);
     }

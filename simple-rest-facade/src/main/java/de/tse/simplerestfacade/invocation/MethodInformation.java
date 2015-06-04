@@ -12,4 +12,8 @@ public interface MethodInformation {
 	Class<?> getPayloadType();
 	Class<?> getReturnType();
 	String getHttpMethod();
+	
+	default boolean hasPayload() {
+	    return getPayload() != null;
+	}
 }
