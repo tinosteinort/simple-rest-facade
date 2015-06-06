@@ -3,8 +3,10 @@ package de.tse.simplerestfacade;
 import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 import org.junit.Test;
@@ -46,7 +48,25 @@ public class MethodInformationDetectorTest {
         assertEquals("service/method", info.getMethodUrl());
     }
     
-    private MethodCall methodCall(final Class<?> serviceClass, final String methodName, final String mediaType, final Class<?> ...paramTypes) {
+    @Path("service")
+    public static interface TestDetectMethodPathWithPathParams {
+        
+        @Path("/method/{id}/{attribute}")
+        void interfaceMethod(@PathParam("id") String param1, @PathParam("attribute") String param2);
+    }
+    
+    @Test public void testDetectMethodPathWithPathParams() {
+        
+        MethodInformationDetector detector = new MethodInformationDetector();
+        
+        MethodCall call = methodCall(TestDetectMethodPathWithPathParams.class, "interfaceMethod", MediaType.APPLICATION_XML, "1234", "attribute");
+        MethodInformation info = detector.detectRestInformations(call);
+        
+        assertEquals("service/method/1234/attribute", info.getMethodUrl());        
+    }
+
+    private MethodCall methodCall(final Class<?> serviceClass, final String methodName, final String mediaType, final Object ...params) {
+        final Class<?>[] paramTypes = Arrays.stream(params).map(param -> param.getClass()).toArray(value -> new Class<?>[value]);
         final Method method;
         try {
             method = serviceClass.getMethod(methodName, paramTypes);
@@ -54,6 +74,6 @@ public class MethodInformationDetectorTest {
         catch (NoSuchMethodException | SecurityException ex) {
             throw new RuntimeException(ex);
         }
-        return new MethodCall(method, paramTypes, mediaType);
+        return new MethodCall(method, params, mediaType);
     }
 }
