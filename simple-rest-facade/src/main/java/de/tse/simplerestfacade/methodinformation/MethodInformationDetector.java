@@ -10,6 +10,7 @@ import de.tse.simplerestfacade.invocation.MethodInformation;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 import de.tse.simplerestfacade.methodinformation.collector.HeaderParamCollector;
 import de.tse.simplerestfacade.methodinformation.collector.HttpMethodCollector;
+import de.tse.simplerestfacade.methodinformation.collector.MatrixParamCollector;
 import de.tse.simplerestfacade.methodinformation.collector.MediaTypeCollector;
 import de.tse.simplerestfacade.methodinformation.collector.PayloadCollector;
 import de.tse.simplerestfacade.methodinformation.collector.QueryParamCollector;
@@ -28,8 +29,9 @@ public class MethodInformationDetector implements RestInformationDetector {
 											new UrlCollector(cache),
 											new PayloadCollector(cache),
 											new ReturnTypeCollector(cache),
-											new HttpMethodCollector(cache)));
-		// TODO @FromParam, @MatrixParam, @CookieParam
+											new HttpMethodCollector(cache),
+											new MatrixParamCollector(cache)));
+		// TODO @FromParam, @CookieParam
 	}
 	
 	@Override

@@ -11,6 +11,7 @@ public class DefaultMethodInformation implements MethodInformation {
 	private String methodUrl;
 	private final List<KeyValue> queryParameter = new ArrayList<>();
 	private final List<KeyValue> headerParameter = new ArrayList<>();
+	private final List<KeyValue> matrixParameter = new ArrayList<>();
 	private String mediaType;
 	private Object payload;
 	private Class<?> payloadType;
@@ -34,6 +35,11 @@ public class DefaultMethodInformation implements MethodInformation {
 	public List<KeyValue> getHeaderParameter() {
 		return headerParameter;
 	}
+
+    @Override
+    public List<KeyValue> getMatrixParameter() {
+        return matrixParameter;
+    }
 
 	@Override
 	public String getMediaType() {

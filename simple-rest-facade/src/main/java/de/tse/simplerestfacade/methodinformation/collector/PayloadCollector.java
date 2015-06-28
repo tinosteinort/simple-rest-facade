@@ -3,6 +3,7 @@ package de.tse.simplerestfacade.methodinformation.collector;
 import java.lang.annotation.Annotation;
 
 import javax.ws.rs.HeaderParam;
+import javax.ws.rs.MatrixParam;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
@@ -35,7 +36,8 @@ public class PayloadCollector extends AbstractCollector<Integer> {
 			
 			if (annotation instanceof PathParam
 					|| annotation instanceof QueryParam
-					|| annotation instanceof HeaderParam) {
+					|| annotation instanceof HeaderParam
+					|| annotation instanceof MatrixParam) {
 				return false;
 			}
 		}

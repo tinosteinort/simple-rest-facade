@@ -7,6 +7,7 @@ public interface MethodInformation {
 	String getMethodUrl();
 	List<KeyValue> getQueryParameter();
 	List<KeyValue> getHeaderParameter();
+	List<KeyValue> getMatrixParameter();
 	String getMediaType();
 	Object getPayload();
 	Class<?> getPayloadType();

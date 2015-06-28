@@ -140,7 +140,7 @@ public class MethodInformationDetectorTest {
         
         MethodInformationDetector detector = new MethodInformationDetector();
         
-        MethodCall call = methodCall(TestDetectQueryParameter.class, "interfaceMethod", MediaType.APPLICATION_XML, "Table", 2);
+        MethodCall call = methodCall(TestDetectHeaderParameter.class, "interfaceMethod", MediaType.APPLICATION_XML, "Table", 2);
         MethodInformation info = detector.detectRestInformations(call);
         
         assertEquals(2, info.getHeaderParameter().size());
@@ -149,7 +149,30 @@ public class MethodInformationDetectorTest {
         assertEquals("amount", info.getHeaderParameter().get(1).getKey());
         assertEquals(2, info.getHeaderParameter().get(1).getValue());
     }
+
+    @Path("service")
+    public static interface TestDetectMatrixParameter {
+        
+        @Path("/method/{one}/{two}/{three}")
+        void interfaceMethod(@MatrixParam("one") String one, @MatrixParam("two") Integer two, @MatrixParam("three") String three);
+    }
     
+    @Test public void testDetectMatrixParameter() {
+        
+        MethodInformationDetector detector = new MethodInformationDetector();
+        
+        MethodCall call = methodCall(TestDetectMatrixParameter.class, "interfaceMethod", MediaType.APPLICATION_XML, "One", 2, "Three");
+        MethodInformation info = detector.detectRestInformations(call);
+        
+        assertEquals(3, info.getMatrixParameter().size());
+        assertEquals("one", info.getMatrixParameter().get(0).getKey());
+        assertEquals("One", info.getMatrixParameter().get(0).getValue());
+        assertEquals("two", info.getMatrixParameter().get(1).getKey());
+        assertEquals(2, info.getMatrixParameter().get(1).getValue());
+        assertEquals("three", info.getMatrixParameter().get(2).getKey());
+        assertEquals("Three", info.getMatrixParameter().get(2).getValue());
+    }
+
     private MethodCall methodCall(final Class<?> serviceClass, final String methodName, final String mediaType, final Object ...params) {
         final Class<?>[] paramTypes = Arrays.stream(params).map(param -> param.getClass()).toArray(value -> new Class<?>[value]);
         final Method method;
