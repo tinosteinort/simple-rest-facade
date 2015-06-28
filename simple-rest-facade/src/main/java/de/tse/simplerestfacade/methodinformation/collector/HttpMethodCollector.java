@@ -12,7 +12,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 public class HttpMethodCollector extends AbstractCollector<String> {
@@ -52,7 +52,7 @@ public class HttpMethodCollector extends AbstractCollector<String> {
 	}
 	
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final String httpMethod) {
-		methodInformation.setHttpMethod(httpMethod);
+	public void apply(final MethodCall methodCall, final MethodInformationBuilder builder, final String httpMethod) {
+		builder.withHttpMethod(httpMethod);
 	}
 }

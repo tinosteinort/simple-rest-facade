@@ -1,7 +1,7 @@
 package de.tse.simplerestfacade.methodinformation.collector;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 public class ReturnTypeCollector extends AbstractCollector<Class<?>> {
@@ -16,7 +16,7 @@ public class ReturnTypeCollector extends AbstractCollector<Class<?>> {
 	}
 
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final Class<?> returnType) {
-		methodInformation.setReturnType(returnType);
+	public void apply(final MethodCall methodCall, final MethodInformationBuilder builder, final Class<?> returnType) {
+		builder.withReturnType(returnType);
 	}
 }

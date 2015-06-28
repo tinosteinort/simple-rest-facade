@@ -8,7 +8,7 @@ import javax.ws.rs.MatrixParam;
 
 import de.tse.simplerestfacade.invocation.KeyValue;
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 public class MatrixParamCollector extends AbstractCollector<List<ParameterCacheInfo>> {
@@ -38,13 +38,13 @@ public class MatrixParamCollector extends AbstractCollector<List<ParameterCacheI
 	}
 	
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final List<ParameterCacheInfo> matrixParameterIndexes) {
+	public void apply(final MethodCall methodCall, final MethodInformationBuilder builder, final List<ParameterCacheInfo> matrixParameterIndexes) {
 		
 		for (ParameterCacheInfo parameterInfo : matrixParameterIndexes) {
 			
 			final Object value = methodCall.getArgs()[parameterInfo.getIndex()];
 			final String key = parameterInfo.getParameterKey();
-			methodInformation.getMatrixParameter().add(new KeyValue(key, value));
+			builder.withMatrixParameter(new KeyValue(key, value));
 		}
 	}
 }

@@ -10,7 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 public class UrlCollector extends AbstractCollector<UrlData> {
@@ -68,7 +68,7 @@ public class UrlCollector extends AbstractCollector<UrlData> {
 	}
 
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final UrlData urlData) {
+	public void apply(final MethodCall methodCall, final MethodInformationBuilder builder, final UrlData urlData) {
 		
 		String methodUrl = urlData.getUrlTemplate();
 		
@@ -78,7 +78,7 @@ public class UrlCollector extends AbstractCollector<UrlData> {
 			methodUrl = methodUrl.replaceAll(key, value);
 		}
 		
-		methodInformation.setMethodUrl(methodUrl);
+		builder.withMethodUrl(methodUrl);
 	}
 	
 	private String generateKeyReplacement(final ParameterCacheInfo pathParameter) {

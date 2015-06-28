@@ -37,17 +37,17 @@ public class MethodInformationDetector implements RestInformationDetector {
 	@Override
 	public MethodInformation detectRestInformations(final MethodCall methodCall) {
 		
-		final DefaultMethodInformation methodInformation = new DefaultMethodInformation();
-		
+	    final MethodInformationBuilder builder = new MethodInformationBuilder();
+	    
 		for (Collector<?> collector : dataCollectors) {
-			collectAndApply(collector, methodCall, methodInformation);
+			collectAndApply(collector, methodCall, builder);
 		}
 		
-		return methodInformation;
+		return builder.build();
 	}
 	
-	private <T> void collectAndApply(final Collector<T> collector, final MethodCall methodCall, final DefaultMethodInformation methodInformation) {
+	private <T> void collectAndApply(final Collector<T> collector, final MethodCall methodCall, final MethodInformationBuilder builder) {
 		final T data = collector.collect(methodCall);
-		collector.apply(methodCall, methodInformation, data);
+		collector.apply(methodCall, builder, data);
 	}
 }

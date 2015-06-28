@@ -1,7 +1,7 @@
 package de.tse.simplerestfacade.methodinformation.collector;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 
 public class MediaTypeCollector extends AbstractCollector<String> {
 
@@ -11,7 +11,7 @@ public class MediaTypeCollector extends AbstractCollector<String> {
 	}
 
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final String mediaType) {
-		methodInformation.setMediaType(mediaType);
+	public void apply(final MethodCall methodCall, final MethodInformationBuilder builder, final String mediaType) {
+		builder.withMediaType(mediaType);
 	}
 }

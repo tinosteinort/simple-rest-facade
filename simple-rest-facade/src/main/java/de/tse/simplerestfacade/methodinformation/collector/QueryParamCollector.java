@@ -8,7 +8,7 @@ import javax.ws.rs.QueryParam;
 
 import de.tse.simplerestfacade.invocation.KeyValue;
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 public class QueryParamCollector extends AbstractCollector<List<ParameterCacheInfo>> {
@@ -38,13 +38,13 @@ public class QueryParamCollector extends AbstractCollector<List<ParameterCacheIn
 	}
 	
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final List<ParameterCacheInfo> queryParameterIndexes) {
+	public void apply(final MethodCall methodCall, final MethodInformationBuilder builder, final List<ParameterCacheInfo> queryParameterIndexes) {
 		
 		for (ParameterCacheInfo parameterInfo : queryParameterIndexes) {
 			
 			final Object value = methodCall.getArgs()[parameterInfo.getIndex()];
 			final String key = parameterInfo.getParameterKey();
-			methodInformation.getQueryParameter().add(new KeyValue(key, value));
+			builder.withQueryParameter(new KeyValue(key, value));
 		}
 	}
 }

@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.methodinformation.DefaultMethodInformation;
+import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 
@@ -45,8 +45,8 @@ public class PayloadCollector extends AbstractCollector<Integer> {
 	}
 
 	@Override
-	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final Integer payloadIndex) {
+	public void apply(final MethodCall methodCall, final MethodInformationBuilder builder, final Integer payloadIndex) {
 		final Object payload = payloadIndex == null ? null : methodCall.getArgs()[payloadIndex];
-		methodInformation.setPayload(payload);
+		builder.withPayload(payload);
 	}
 }

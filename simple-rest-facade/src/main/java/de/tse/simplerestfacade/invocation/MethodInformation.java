@@ -4,14 +4,14 @@ import java.util.List;
 
 public interface MethodInformation {
 
-	String getMethodUrl();
+    String getMediaType();
+    String getMethodUrl();
+    String getHttpMethod();
+    Object getPayload();
+    Class<?> getReturnType();
 	List<KeyValue> getQueryParameter();
 	List<KeyValue> getHeaderParameter();
 	List<KeyValue> getMatrixParameter();
-	String getMediaType();
-	Object getPayload();
-	Class<?> getReturnType();
-	String getHttpMethod();
 	
 	default boolean hasPayload() {
 	    return getPayload() != null;
