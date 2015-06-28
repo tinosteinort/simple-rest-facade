@@ -10,7 +10,6 @@ public interface MethodInformation {
 	List<KeyValue> getMatrixParameter();
 	String getMediaType();
 	Object getPayload();
-	Class<?> getPayloadType();
 	Class<?> getReturnType();
 	String getHttpMethod();
 	

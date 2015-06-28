@@ -14,7 +14,6 @@ public class DefaultMethodInformation implements MethodInformation {
 	private final List<KeyValue> matrixParameter = new ArrayList<>();
 	private String mediaType;
 	private Object payload;
-	private Class<?> payloadType;
 	private Class<?> returnType;
 	private String httpMethod;
 	
@@ -56,14 +55,6 @@ public class DefaultMethodInformation implements MethodInformation {
 	public void setPayload(final Object payload) {
 		this.payload = payload;
 	}
-	
-	@Override
-	public Class<?> getPayloadType() {
-        return payloadType;
-    }
-	public void setPayloadType(Class<?> payloadType) {
-        this.payloadType = payloadType;
-    }
 
 	@Override
 	public Class<?> getReturnType() {

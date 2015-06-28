@@ -46,10 +46,6 @@ public class PayloadCollector extends AbstractCollector<Integer> {
 
 	@Override
 	public void apply(final MethodCall methodCall, final DefaultMethodInformation methodInformation, final Integer payloadIndex) {
-	    // TODO
-//	    final Class<?> payloadType = methodCall.getMethod().getParameterTypes()[payloadIndex];
-//	    methodInformation.setPayloadType(payloadType); 
-	    
 		final Object payload = payloadIndex == null ? null : methodCall.getArgs()[payloadIndex];
 		methodInformation.setPayload(payload);
 	}
