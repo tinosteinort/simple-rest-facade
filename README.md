@@ -1,4 +1,5 @@
 simple-rest-facade
+[![Build Status](https://api.shippable.com/projects/5597b3c0edd7f2c052585250/badge/master)]
 ==================
 
 Create dynamic and type-safe Clients for RESTful Webservices.
