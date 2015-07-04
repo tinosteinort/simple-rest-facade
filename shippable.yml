@@ -4,3 +4,7 @@ language: java
 # version numbers
 jdk:
     - oraclejdk8
+
+# pom.xml is not in Repository root
+script:
+    cd simple-rest-facade && mvn build
