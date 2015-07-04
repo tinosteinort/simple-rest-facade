@@ -7,4 +7,4 @@ jdk:
 
 # pom.xml is not in Repository root
 script:
-    cd simple-rest-facade && mvn build
+    cd simple-rest-facade && mvn clean install
