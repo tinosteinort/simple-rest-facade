@@ -1,0 +1,6 @@
+# language setting
+language: java
+
+# version numbers
+jdk:
+    - oraclejdk8
