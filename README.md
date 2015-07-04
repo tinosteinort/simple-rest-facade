@@ -47,7 +47,7 @@ class PersonServiceServerSideImpl implements PersonService {
     @Override
     public Person getPersonByName(final String name) {
         final Person person = new Person();
-        person.setFirstname("Donnie");
+        person.setFirstname(name);
         return person;
     }
 }
