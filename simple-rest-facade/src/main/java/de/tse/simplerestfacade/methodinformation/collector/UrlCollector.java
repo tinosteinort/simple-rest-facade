@@ -13,14 +13,14 @@ import de.tse.simplerestfacade.invocation.MethodCall;
 import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
-public class UrlCollector extends AbstractCollector<UrlData> {
+public class UrlCollector extends CachableCollector<UrlData> {
 	
 	public UrlCollector(final DataCache cache) {
 		super(cache);
 	}
 
 	@Override
-	protected UrlData collectData(final MethodCall methodCall) {
+	protected UrlData collectCachableData(final MethodCall methodCall) {
 		final String urlTemplate = detectUrlTemplate(methodCall);
 		final List<ParameterCacheInfo> pathParams = detectPathParams(methodCall);
 		return new UrlData(urlTemplate, pathParams);

@@ -15,14 +15,14 @@ import de.tse.simplerestfacade.invocation.MethodCall;
 import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
-public class HttpMethodCollector extends AbstractCollector<String> {
+public class HttpMethodCollector extends CachableCollector<String> {
 
 	public HttpMethodCollector(final DataCache cache) {
 		super(cache);
 	}
 	
 	@Override
-	protected String collectData(final MethodCall methodCall) {
+	protected String collectCachableData(final MethodCall methodCall) {
 		for (Annotation annotation : getHttpAnnotations(methodCall)) {
 			final Optional<String> method = getHttpMethod(annotation);
 			if (method.isPresent()) {

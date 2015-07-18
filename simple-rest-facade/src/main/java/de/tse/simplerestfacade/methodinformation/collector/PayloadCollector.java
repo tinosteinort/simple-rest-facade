@@ -12,14 +12,14 @@ import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 
-public class PayloadCollector extends AbstractCollector<Integer> {
+public class PayloadCollector extends CachableCollector<Integer> {
 
 	public PayloadCollector(final DataCache cache) {
 		super(cache);
 	}
 	
 	@Override
-	protected Integer collectData(final MethodCall methodCall) {
+	protected Integer collectCachableData(final MethodCall methodCall) {
 		
 		final Annotation[][] allParameterAnnotations = methodCall.getMethod().getParameterAnnotations();
 		for (int parameterIndex = 0; parameterIndex < allParameterAnnotations.length; parameterIndex++) {

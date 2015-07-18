@@ -11,14 +11,14 @@ import de.tse.simplerestfacade.invocation.MethodCall;
 import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
-public class MatrixParamCollector extends AbstractCollector<List<ParameterCacheInfo>> {
+public class MatrixParamCollector extends CachableCollector<List<ParameterCacheInfo>> {
 
 	public MatrixParamCollector(final DataCache cache) {
 		super(cache);
 	}
 	
 	@Override
-	protected List<ParameterCacheInfo> collectData(final MethodCall methodCall) {
+	protected List<ParameterCacheInfo> collectCachableData(final MethodCall methodCall) {
 		
 		final List<ParameterCacheInfo> matrixParameterIndexes = new ArrayList<>();
 		
