@@ -11,46 +11,54 @@ import de.tse.simplerestfacade.invocation.MethodCall;
 public class DataCache {
 	
 	private final Map<Method, Map<String, CacheEntry<?>>> cache = new HashMap<>();
-	private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+	private final ReadWriteLock rwLock = new ReentrantReadWriteLock();
 	
-	public <T> T createAndGetValue(final MethodCall methodCall, final String key, final CacheCallback<T> callback) {
-		readWriteLock.readLock().lock();
+	public <T> T getOrCreateCacheValue(final MethodCall methodCall, final String key, final CacheCallback<T> callback) {
+		return getCachedValue(methodCall, key, callback);
+	}
+
+    private <T> T getCachedValue(final MethodCall methodCall, final String key, final CacheCallback<T> callback) {
+        rwLock.readLock().lock();
 		try {
-			if (isValueCached(methodCall, key)) {
-				return getCachedValue(methodCall, key);
+			if (valueIsCached(methodCall, key)) {
+				return getValueFromCache(methodCall, key);
 			}
+			
+			return createCachedValue(methodCall, key, callback);
 		}
 		finally {
-			readWriteLock.readLock().unlock();
+			rwLock.readLock().unlock();
 		}
-		
-		readWriteLock.writeLock().lock();
+    }
+
+    private <T> T createCachedValue(final MethodCall methodCall, final String key, final CacheCallback<T> callback) {
+        rwLock.writeLock().lock();
 		try {
-			if (isValueCached(methodCall, key)) {
-				return getCachedValue(methodCall, key);
+			if (valueIsCached(methodCall, key)) {
+				return getValueFromCache(methodCall, key);
 			}
 			
 			final T valueToCache = callback.detectValue();
-			putIntoCache(methodCall, key, valueToCache);
+			putValueIntoCache(methodCall, key, valueToCache);
 			return valueToCache;
 		}
 		finally {
-			readWriteLock.writeLock().unlock();
+			rwLock.writeLock().unlock();
 		}
-	}
+    }
 	
-	private boolean isValueCached(final MethodCall methodCall, final String key) {
+	private boolean valueIsCached(final MethodCall methodCall, final String key) {
 		final Map<String, CacheEntry<?>> methodCache = cache.get(methodCall.getMethod());
 		return methodCache == null ? false : methodCache.get(key) != null;
 	}
 	
 	@SuppressWarnings("unchecked")
-	private <T> T getCachedValue(final MethodCall methodCall, final String key) {
+	private <T> T getValueFromCache(final MethodCall methodCall, final String key) {
 		final Map<String, CacheEntry<?>> methodCache = cache.get(methodCall.getMethod());
 		return (T) methodCache.get(key).getValue();
 	}
 	
-	private <T> void putIntoCache(final MethodCall methodCall, final String key, final T value) {
+	private <T> void putValueIntoCache(final MethodCall methodCall, final String key, final T value) {
 		Map<String, CacheEntry<?>> methodCache = cache.get(methodCall.getMethod());
 		if (methodCache == null) {
 			methodCache = new HashMap<>();

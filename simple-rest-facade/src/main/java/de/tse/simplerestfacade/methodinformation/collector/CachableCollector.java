@@ -14,7 +14,7 @@ public abstract class CachableCollector<T> implements Collector<T> {
 	}
 	
 	@Override public T collect(final MethodCall methodCall) {
-		return cache.createAndGetValue(methodCall, getCacheKey(), new CacheCallback<T>() {
+		return cache.getOrCreateCacheValue(methodCall, getCacheKey(), new CacheCallback<T>() {
 			@Override public T detectValue() {
 				return collectCachableData(methodCall);
 			}
