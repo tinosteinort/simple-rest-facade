@@ -2,9 +2,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>simple-rest-facade</groupId>
-	<artifactId>simple-rest-facade</artifactId>
+	<artifactId>simple-rest-facade-core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>simple-rest-facade</name>
+	<name>simple-rest-facade-core</name>
 	<description>Create dynamic and type-safe clients for RESTful Webservices</description>
 	
 	<build>
