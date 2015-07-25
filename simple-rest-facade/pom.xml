@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>simple-rest-facade</groupId>
+	<artifactId>simple-rest-facade</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+	<name>simple-rest-facade</name>
+	
+    <developers>
+        <developer>
+            <id>tse</id>
+            <name>Tino Steinort</name>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>../simple-rest-facade-core</module>
+        <module>../simple-rest-facade-json</module>
+        <module>../simple-rest-facade-xml</module>
+        <module>../simple-rest-facade-test</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <version.java>1.8</version.java>
+        
+        <version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
+        <version.maven-source-plugin>2.2.1</version.maven-source-plugin>
+        <version.maven-surefire-plugin>2.18.1</version.maven-surefire-plugin>
+        
+        <version.simple-rest-facade>0.0.1-SNAPSHOT</version.simple-rest-facade>
+        
+        <version.junit>4.12</version.junit>
+        <version.log4j>1.2.17</version.log4j>
+        <version.jax-ws-rs>2.0.1</version.jax-ws-rs>
+        <version.httpclient>4.4.1</version.httpclient>
+        <!-- jackson-databind: Conflicts with dependencies for test <version>2.5.3</version> -->
+        <version.jackson-databind>2.3.2</version.jackson-databind>
+        <version.jersey-test-framework-provider-simple>2.17</version.jersey-test-framework-provider-simple>
+        <version.jersey-media-json-jackson>2.17</version.jersey-media-json-jackson>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.maven-compiler-plugin}</version>
+                    <configuration>
+                        <source>${version.java}</source>
+                        <target>${version.java}</target>
+                    </configuration>
+                </plugin>
+	            <plugin>
+	                <groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-source-plugin</artifactId>
+	                <version>${version.maven-source-plugin}</version>
+	                <executions>
+	                    <execution>
+	                        <id>attach-sources</id>
+	                        <phase>verify</phase>
+	                        <goals>
+	                            <goal>jar-no-fork</goal>
+	                        </goals>
+	                    </execution>
+	                </executions>
+	            </plugin>
+	            <plugin>
+	                <groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-surefire-plugin</artifactId>
+	                <version>${version.maven-surefire-plugin}</version>
+	            </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>simple-rest-facade</groupId>
+                <artifactId>simple-rest-facade-core</artifactId>
+                <version>${version.simple-rest-facade}</version>
+            </dependency>
+            <dependency>
+                <groupId>simple-rest-facade</groupId>
+                <artifactId>simple-rest-facade-xml</artifactId>
+                <version>${version.simple-rest-facade}</version>
+            </dependency>
+            <dependency>
+                <groupId>simple-rest-facade</groupId>
+                <artifactId>simple-rest-facade-json</artifactId>
+                <version>${version.simple-rest-facade}</version>
+            </dependency>
+	        <dependency>
+	            <groupId>junit</groupId>
+	            <artifactId>junit</artifactId>
+	            <version>${version.junit}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>javax.ws.rs</groupId>
+	            <artifactId>javax.ws.rs-api</artifactId>
+	            <version>${version.jax-ws-rs}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.apache.httpcomponents</groupId>
+	            <artifactId>httpclient</artifactId>
+	            <version>${version.httpclient}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>com.fasterxml.jackson.core</groupId>
+	            <artifactId>jackson-databind</artifactId>
+	            <version>${version.jackson-databind}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+	            <artifactId>jersey-test-framework-provider-simple</artifactId>
+	            <version>${version.jersey-test-framework-provider-simple}</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.glassfish.jersey.media</groupId>
+	            <artifactId>jersey-media-json-jackson</artifactId>
+	            <version>${version.jersey-media-json-jackson}</version>
+	        </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+</project>

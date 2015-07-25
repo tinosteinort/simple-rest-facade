@@ -1,9 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>simple-rest-facade</groupId>
+	
+    <parent>
+        <relativePath>../simple-rest-facade</relativePath>
+        <groupId>simple-rest-facade</groupId>
+        <artifactId>simple-rest-facade</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
 	<artifactId>simple-rest-facade-json</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+
 	<name>simple-rest-facade-json</name>
 	<description>Marshalling of Objects from and to JSON for the simple-rest-facade</description>
 	
@@ -12,46 +18,23 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
 
 	<dependencies>
-
 		<dependency>
 			<groupId>simple-rest-facade</groupId>
 			<artifactId>simple-rest-facade-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<!-- Conflicts with dependencies for test
-			<version>2.5.3</version>
-			-->
-			<version>2.3.2</version>
 		</dependency>
-
 	</dependencies>
+	
 </project>
