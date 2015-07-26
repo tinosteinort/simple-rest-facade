@@ -23,12 +23,12 @@ public class DataCache {
 			if (valueIsCached(methodCall, key)) {
 				return getValueFromCache(methodCall, key);
 			}
-			
-			return createCachedValue(methodCall, key, callback);
 		}
 		finally {
 			rwLock.readLock().unlock();
 		}
+		
+		return createCachedValue(methodCall, key, callback);
     }
 
     private <T> T createCachedValue(final MethodCall methodCall, final String key, final CacheCallback<T> callback) {
