@@ -46,11 +46,7 @@ public class DefaultRestFacadeFactory implements RestFacadeFactory {
 	    validator.ifPresent(validator -> validator.validate(facadeClass, mediaType));
 		
 	    final ExecutionContext executionContext = new ExecutionContext(endpoint, httpClient, marshallingConfigProvider, exceptionHandler);
-	    final MethodExecutionFactory executionFactory = new MethodExecutionFactory(executionContext);
-		final RestServiceCaller serviceCaller = new DefaultServiceCaller(executionFactory);
-		final RestInformationDetector informationDetector = new MethodInformationDetector();
-		
-		final InvocationHandler invocationHandler = new RestInvocationHandler(serviceCaller, informationDetector, mediaType);
+		final InvocationHandler invocationHandler = new RestInvocationHandler(executionContext, mediaType);
 		
 		return createProxy(facadeClass, invocationHandler);
 	}
