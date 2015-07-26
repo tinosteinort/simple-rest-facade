@@ -9,8 +9,6 @@ import org.apache.http.client.HttpClient;
 
 import de.tse.simplerestfacade.invocation.RestInvocationHandler;
 import de.tse.simplerestfacade.marshalling.MarshallingConfigProvider;
-import de.tse.simplerestfacade.methodexecution.MethodExecutionFactory;
-import de.tse.simplerestfacade.methodinformation.MethodInformationDetector;
 
 public class DefaultRestFacadeFactory implements RestFacadeFactory {
 	
@@ -45,8 +43,8 @@ public class DefaultRestFacadeFactory implements RestFacadeFactory {
 
 	    validator.ifPresent(validator -> validator.validate(facadeClass, mediaType));
 		
-	    final ExecutionContext executionContext = new ExecutionContext(endpoint, httpClient, marshallingConfigProvider, exceptionHandler);
-		final InvocationHandler invocationHandler = new RestInvocationHandler(executionContext, mediaType);
+	    final ExecutionContext executionContext = new ExecutionContext(endpoint, mediaType, httpClient, marshallingConfigProvider, exceptionHandler);
+		final InvocationHandler invocationHandler = new RestInvocationHandler(executionContext);
 		
 		return createProxy(facadeClass, invocationHandler);
 	}

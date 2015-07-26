@@ -12,21 +12,21 @@ import de.tse.simplerestfacade.methodinformation.MethodInformationDetector;
 
 public class RestInvocationHandler implements InvocationHandler {
 
+    private final ExecutionContext executionContext;
 	private final RestServiceCaller serviceCaller;
 	private final RestInformationDetector informationDetector;
-	private final String mediaType;
 	
-	public RestInvocationHandler(final ExecutionContext executionContext, final String mediaType) {
+	public RestInvocationHandler(final ExecutionContext executionContext) {
 	    
-		this.serviceCaller = new DefaultServiceCaller(new MethodExecutionFactory(executionContext));
+	    this.executionContext = executionContext;
+		this.serviceCaller = new DefaultServiceCaller(new MethodExecutionFactory(this.executionContext));
 		this.informationDetector = new MethodInformationDetector();
-		this.mediaType = mediaType;
 	}
 	
 	@Override
 	public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
 		
-		final MethodCall call = new MethodCall(method, args, mediaType);
+		final MethodCall call = new MethodCall(method, args, executionContext.getMediaType());
 		final MethodInformation information = informationDetector.detectRestInformations(call);
 		
 		return serviceCaller.callRestService(information);
