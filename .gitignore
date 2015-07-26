@@ -5,4 +5,5 @@ RemoteSystemsTempFiles/
 */.settings
 */.classpath
 */.project
+shippable/
 Servers/
