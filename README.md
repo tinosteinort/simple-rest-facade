@@ -14,13 +14,26 @@ There is no need to write Code that communicates with the RESTful Webservice. Th
 Example Interface:
 ```java
 @Path("personservice")
-@Consumes(MediaType.APPLICATION_JSON)    
+@Consumes(MediaType.APPLICATION_JSON)
 interface PersonService {
     
     @GET
     @Path("/person/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     Person getPersonByName(@PathParam("name") String name);
+}
+```
+
+Possible Serverside Implementation:
+```java
+class PersonServiceServerSideImpl implements PersonService {
+    
+    @Override
+    public Person getPersonByName(final String name) {
+        final Person person = new Person();
+        person.setFirstname(name);
+        return person;
+    }
 }
 ```
 
@@ -38,19 +51,6 @@ public static void main(String[] args) {
     final PersonService personService = factory.createFacade(PersonService.class);
     
     final Person person = personService.getPersonByName("Donnie");
-}
-```
-
-Possible Serverside Implementation:
-```java
-class PersonServiceServerSideImpl implements PersonService {
-    
-    @Override
-    public Person getPersonByName(final String name) {
-        final Person person = new Person();
-        person.setFirstname(name);
-        return person;
-    }
 }
 ```
 
