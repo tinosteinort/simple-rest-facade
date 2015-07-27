@@ -1,9 +1,9 @@
 .metadata/
 RemoteSystemsTempFiles/
-*/target/
-*/bin/
-*/.settings
-*/.classpath
-*/.project
+target/
+bin/
+.settings
+.classpath
+.project
 shippable/
 Servers/
