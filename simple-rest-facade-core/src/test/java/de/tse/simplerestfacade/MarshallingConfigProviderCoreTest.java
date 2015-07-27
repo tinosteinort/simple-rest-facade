@@ -14,7 +14,7 @@ import de.tse.simplerestfacade.marshalling.MarshallingConfig;
 import de.tse.simplerestfacade.marshalling.MarshallingConfigProvider;
 import de.tse.simplerestfacade.marshalling.Unmarshaller;
 
-public class MarshallingConfigProviderTest {
+public class MarshallingConfigProviderCoreTest {
 
     @Test(expected = RestClientException.class)
     public void testWithoutAnyMarshallingConfigProvider() {
