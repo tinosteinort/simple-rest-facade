@@ -13,4 +13,4 @@ script:
     cd simple-rest-facade && mvn install -DskipTests=true
 
 after_success:
-    cp ./**/coverage.xml ../shippable/codecoverage/ && mvn test cobertura:cobertura
+    cp **/coverage.xml ../shippable/codecoverage/ && mvn test cobertura:cobertura
