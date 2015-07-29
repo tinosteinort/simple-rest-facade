@@ -88,7 +88,6 @@
 	                   <format>xml</format>
 	                   <maxmem>256m</maxmem>
 	                   <aggregate>true</aggregate>
-	                   <outputDirectory>../shippable/codecoverage</outputDirectory>
 	               </configuration>
 	            </plugin>
             </plugins>
