@@ -13,6 +13,7 @@ script:
     cd simple-rest-facade && mvn install -DskipTests=true
 
 after_script:
+    # from cobertura-maven-plugin aggregated Coverage File is saved in target/site/cobertura
     cp target/site/cobertura/coverage.xml ../shippable/codecoverage/
 
 after_success:
