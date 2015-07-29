@@ -10,4 +10,4 @@ script:
     cd simple-rest-facade && mvn install -DskipTests=true
 
 after_success:
-    mvn test
+    mvn test cobertura:cobertura
