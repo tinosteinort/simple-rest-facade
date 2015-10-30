@@ -12,8 +12,8 @@ import javax.ws.rs.core.MediaType;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import de.tse.simplerestfacade.DefaultRestFacadeFactory;
 import de.tse.simplerestfacade.RestFacadeFactory;
+import de.tse.simplerestfacade.buildin.DefaultRestFacadeFactory;
 import de.tse.simplerestfacade.data.Person;
 
 public class Example {

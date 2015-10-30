@@ -1,8 +1,10 @@
-package de.tse.simplerestfacade;
+package de.tse.simplerestfacade.buildin;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 
+import de.tse.simplerestfacade.ExceptionHandler;
+import de.tse.simplerestfacade.RestClientException;
 import de.tse.simplerestfacade.marshalling.Unmarshaller;
 
 /**

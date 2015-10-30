@@ -1,7 +1,7 @@
 package de.tse.simplerestfacade;
 
-import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.invocation.MethodInformation;
+import de.tse.simplerestfacade.methodinformation.MethodCall;
+import de.tse.simplerestfacade.methodinformation.MethodInformation;
 
 public interface RestInformationDetector {
 

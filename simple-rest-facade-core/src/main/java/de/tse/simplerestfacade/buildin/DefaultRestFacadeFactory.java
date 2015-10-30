@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade;
+package de.tse.simplerestfacade.buildin;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
@@ -9,9 +9,13 @@ import java.util.Optional;
 
 import org.apache.http.client.HttpClient;
 
+import de.tse.simplerestfacade.ExceptionHandler;
+import de.tse.simplerestfacade.RestFacadeFactory;
+import de.tse.simplerestfacade.RestInterfaceValidator;
 import de.tse.simplerestfacade.invocation.RestInvocationHandler;
 import de.tse.simplerestfacade.marshalling.MarshallingConfig;
 import de.tse.simplerestfacade.marshalling.MarshallingConfigProvider;
+import de.tse.simplerestfacade.methodexecution.ExecutionContext;
 
 /**
  * Entry Point for Creating a Client for a REST Service.<br/>

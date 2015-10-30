@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.tse.simplerestfacade.RestInformationDetector;
-import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.invocation.MethodInformation;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 import de.tse.simplerestfacade.methodinformation.collector.HeaderParamCollector;
 import de.tse.simplerestfacade.methodinformation.collector.HttpMethodCollector;

@@ -9,9 +9,8 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 
 import de.tse.simplerestfacade.ExceptionHandler;
-import de.tse.simplerestfacade.ExecutionContext;
-import de.tse.simplerestfacade.ResultConverterResponseHandler;
-import de.tse.simplerestfacade.invocation.MethodInformation;
+import de.tse.simplerestfacade.invocation.ResultConverterResponseHandler;
+import de.tse.simplerestfacade.methodinformation.MethodInformation;
 
 class PutExecution extends HttpMethodExecution {
     

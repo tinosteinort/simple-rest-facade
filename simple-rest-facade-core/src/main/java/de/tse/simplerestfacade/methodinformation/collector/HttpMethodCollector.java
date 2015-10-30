@@ -11,7 +11,7 @@ import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 
-import de.tse.simplerestfacade.invocation.MethodCall;
+import de.tse.simplerestfacade.methodinformation.MethodCall;
 import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 

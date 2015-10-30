@@ -16,8 +16,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.junit.Test;
 
-import de.tse.simplerestfacade.invocation.MethodCall;
-import de.tse.simplerestfacade.invocation.MethodInformation;
+import de.tse.simplerestfacade.methodinformation.MethodCall;
+import de.tse.simplerestfacade.methodinformation.MethodInformation;
 import de.tse.simplerestfacade.methodinformation.MethodInformationDetector;
 
 public class MethodInformationDetectorTest {

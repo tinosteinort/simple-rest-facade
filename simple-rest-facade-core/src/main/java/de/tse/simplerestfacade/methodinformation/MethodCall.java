@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade.invocation;
+package de.tse.simplerestfacade.methodinformation;
 
 import java.lang.reflect.Method;
 

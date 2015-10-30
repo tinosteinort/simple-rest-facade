@@ -1,4 +1,4 @@
-package de.tse.simplerestfacade;
+package de.tse.simplerestfacade.invocation;
 
 import java.io.IOException;
 
@@ -8,6 +8,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.util.EntityUtils;
 
+import de.tse.simplerestfacade.ExceptionHandler;
 import de.tse.simplerestfacade.marshalling.Unmarshaller;
 
 public class ResultConverterResponseHandler<T> implements ResponseHandler<Object> {

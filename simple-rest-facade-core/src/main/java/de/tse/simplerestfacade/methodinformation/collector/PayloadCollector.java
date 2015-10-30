@@ -7,7 +7,7 @@ import javax.ws.rs.MatrixParam;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
-import de.tse.simplerestfacade.invocation.MethodCall;
+import de.tse.simplerestfacade.methodinformation.MethodCall;
 import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 

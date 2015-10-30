@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 
 import org.apache.http.client.ClientProtocolException;
 
-import de.tse.simplerestfacade.invocation.MethodInformation;
+import de.tse.simplerestfacade.methodinformation.MethodInformation;
 
 public interface MethodExecution {
     

@@ -4,7 +4,7 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.tse.simplerestfacade.invocation.MethodCall;
+import de.tse.simplerestfacade.methodinformation.MethodCall;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 
 public abstract class AnnotationCollector<T extends Annotation> extends CachableCollector<List<ParameterCacheInfo>> {

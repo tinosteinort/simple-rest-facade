@@ -7,6 +7,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 
+import de.tse.simplerestfacade.buildin.DefaultRestFacadeFactory;
+
 public abstract class AbstractIntegrationTest extends JerseyTest {
     
     @Override

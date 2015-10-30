@@ -12,11 +12,10 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.message.AbstractHttpMessage;
 
 import de.tse.simplerestfacade.ExceptionHandler;
-import de.tse.simplerestfacade.ExecutionContext;
-import de.tse.simplerestfacade.invocation.KeyValue;
-import de.tse.simplerestfacade.invocation.MethodInformation;
 import de.tse.simplerestfacade.marshalling.Marshaller;
 import de.tse.simplerestfacade.marshalling.Unmarshaller;
+import de.tse.simplerestfacade.methodinformation.KeyValue;
+import de.tse.simplerestfacade.methodinformation.MethodInformation;
 
 abstract class HttpMethodExecution implements MethodExecution {
 

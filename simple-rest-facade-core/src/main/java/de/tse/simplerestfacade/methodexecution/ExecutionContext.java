@@ -1,9 +1,10 @@
-package de.tse.simplerestfacade;
+package de.tse.simplerestfacade.methodexecution;
 
 import java.net.URI;
 
 import org.apache.http.client.HttpClient;
 
+import de.tse.simplerestfacade.ExceptionHandler;
 import de.tse.simplerestfacade.marshalling.MarshallingConfigProvider;
 
 public class ExecutionContext {

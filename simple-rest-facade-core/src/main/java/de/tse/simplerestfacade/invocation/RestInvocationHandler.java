@@ -3,11 +3,13 @@ package de.tse.simplerestfacade.invocation;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-import de.tse.simplerestfacade.DefaultServiceCaller;
-import de.tse.simplerestfacade.ExecutionContext;
 import de.tse.simplerestfacade.RestInformationDetector;
-import de.tse.simplerestfacade.RestServiceCaller;
+import de.tse.simplerestfacade.buildin.DefaultServiceCaller;
+import de.tse.simplerestfacade.buildin.RestServiceCaller;
+import de.tse.simplerestfacade.methodexecution.ExecutionContext;
 import de.tse.simplerestfacade.methodexecution.MethodExecutionFactory;
+import de.tse.simplerestfacade.methodinformation.MethodCall;
+import de.tse.simplerestfacade.methodinformation.MethodInformation;
 import de.tse.simplerestfacade.methodinformation.MethodInformationDetector;
 
 public class RestInvocationHandler implements InvocationHandler {

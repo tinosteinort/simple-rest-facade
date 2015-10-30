@@ -8,9 +8,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 
 import de.tse.simplerestfacade.ExceptionHandler;
-import de.tse.simplerestfacade.ExecutionContext;
-import de.tse.simplerestfacade.ResultConverterResponseHandler;
-import de.tse.simplerestfacade.invocation.MethodInformation;
+import de.tse.simplerestfacade.invocation.ResultConverterResponseHandler;
+import de.tse.simplerestfacade.methodinformation.MethodInformation;
 
 class DeleteExecution extends HttpMethodExecution {
     

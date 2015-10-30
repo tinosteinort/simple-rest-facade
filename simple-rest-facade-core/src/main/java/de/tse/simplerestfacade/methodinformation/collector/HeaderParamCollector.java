@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.ws.rs.HeaderParam;
 
-import de.tse.simplerestfacade.invocation.KeyValue;
-import de.tse.simplerestfacade.invocation.MethodCall;
+import de.tse.simplerestfacade.methodinformation.KeyValue;
+import de.tse.simplerestfacade.methodinformation.MethodCall;
 import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 

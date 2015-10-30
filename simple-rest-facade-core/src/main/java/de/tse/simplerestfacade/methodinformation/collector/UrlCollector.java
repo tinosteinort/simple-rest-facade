@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
-import de.tse.simplerestfacade.invocation.MethodCall;
+import de.tse.simplerestfacade.methodinformation.MethodCall;
 import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 

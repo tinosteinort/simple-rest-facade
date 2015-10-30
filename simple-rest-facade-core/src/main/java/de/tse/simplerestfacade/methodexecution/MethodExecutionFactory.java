@@ -2,8 +2,6 @@ package de.tse.simplerestfacade.methodexecution;
 
 import javax.ws.rs.HttpMethod;
 
-import de.tse.simplerestfacade.ExecutionContext;
-
 
 public class MethodExecutionFactory {
     

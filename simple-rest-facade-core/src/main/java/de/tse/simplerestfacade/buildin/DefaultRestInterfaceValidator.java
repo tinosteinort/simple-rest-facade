@@ -1,5 +1,6 @@
-package de.tse.simplerestfacade;
+package de.tse.simplerestfacade.buildin;
 
+import de.tse.simplerestfacade.RestInterfaceValidator;
 
 public class DefaultRestInterfaceValidator implements RestInterfaceValidator {
 

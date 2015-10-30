@@ -1,6 +1,6 @@
 package de.tse.simplerestfacade.methodinformation.collector;
 
-import de.tse.simplerestfacade.invocation.MethodCall;
+import de.tse.simplerestfacade.methodinformation.MethodCall;
 import de.tse.simplerestfacade.methodinformation.MethodInformationBuilder;
 import de.tse.simplerestfacade.methodinformation.cache.DataCache;
 

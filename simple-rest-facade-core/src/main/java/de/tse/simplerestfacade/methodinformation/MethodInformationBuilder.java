@@ -3,9 +3,6 @@ package de.tse.simplerestfacade.methodinformation;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.tse.simplerestfacade.invocation.KeyValue;
-import de.tse.simplerestfacade.invocation.MethodInformation;
-
 public class MethodInformationBuilder {
 
     private String mediaType;
