@@ -40,7 +40,7 @@
         <version.jax-ws-rs>2.0.1</version.jax-ws-rs>
         <version.httpclient>4.4.1</version.httpclient>
         <!-- jackson-databind: Conflicts with dependencies for test <version>2.5.3</version> -->
-        <version.jackson-databind>2.3.2</version.jackson-databind>
+        <version.jackson-databind>2.9.7</version.jackson-databind>
         <version.jersey-test-framework-provider-simple>2.17</version.jersey-test-framework-provider-simple>
         <version.jersey-media-json-jackson>2.17</version.jersey-media-json-jackson>
     </properties>

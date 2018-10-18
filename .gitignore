@@ -5,5 +5,7 @@ bin/
 .settings
 .classpath
 .project
+.idea/
+*.iml
 shippable/
 Servers/
